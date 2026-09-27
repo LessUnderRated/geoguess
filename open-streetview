@@ -6,21 +6,34 @@ if [[ -z $url ]]; then
   echo "open-streetview needs a url" >&2
   exit 2
 fi
+base=${url%%#*}
+case $base in
+  https://www.google.com/maps/*|https://maps.google.com/*) ;;
+  *) echo "refusing non-maps url" >&2; exit 2 ;;
+esac
+if [[ $url == *$'\n'* || $url == *$'\r'* || $url == *"'"* || $url == *'"'* || $url == *'`'* || $url == *'$'* ]]; then
+  echo "refusing unsafe url" >&2
+  exit 2
+fi
 
 before=$(hyprctl clients -j)
 
 omarchy-launch-webapp "$url" &
 
 python3 - "$before" << 'PY'
-import json, subprocess, sys, time
+import json, re, subprocess, sys, time
 
-before = {client["address"] for client in json.loads(sys.argv[1])}
+ADDRESS_RE = re.compile(r"^0x[0-9a-fA-F]+$")
+
+before = {client["address"] for client in json.loads(sys.argv[1]) if ADDRESS_RE.fullmatch(str(client.get("address") or ""))}
 
 def clients():
     raw = subprocess.check_output(["hyprctl", "clients", "-j"], text=True)
     return json.loads(raw)
 
 def fullscreen(address):
+    if not ADDRESS_RE.fullmatch(address or ""):
+        return False
     target = "address:" + address
     cmd = (
         'hl.dsp.window.fullscreen({ window = "%s", mode = "fullscreen", action = "set" })'
@@ -47,7 +60,8 @@ for _ in range(40):
     time.sleep(0.15)
     fresh = [
         client for client in clients()
-        if client.get("address") not in before
+        if ADDRESS_RE.fullmatch(str(client.get("address") or ""))
+        and client.get("address") not in before
         and "chrom" in str(client.get("class", "")).lower()
     ]
     if not fresh:

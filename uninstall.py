@@ -96,18 +96,19 @@ def rewrite_flags(add=False, remove=False):
         text = read_text(path)
         if text is None:
             continue
-        lines, out, found = text.splitlines(keepends=True), [], False
+        lines, out, ours = text.splitlines(keepends=True), [], False
         for line in lines:
             stripped = line.strip()
             if not stripped.startswith("--load-extension="):
                 out.append(line); continue
-            found = True
             ending = line[len(line.rstrip("\r\n")):]
             paths = [p for p in stripped.split("=", 1)[1].split(",") if p]
-            if remove: paths = [p for p in paths if not extension_path(p)]
-            if add and os.path.isdir(EXTENSION_DIR) and EXTENSION_DIR not in paths: paths.append(EXTENSION_DIR)
+            if remove:
+                paths = [p for p in paths if not extension_path(p)]
+            elif add and os.path.isdir(EXTENSION_DIR) and EXTENSION_DIR in paths:
+                ours = True
             if paths: out.append("--load-extension=" + ",".join(paths) + ending)
-        if add and not found and os.path.isdir(EXTENSION_DIR):
+        if add and not ours and os.path.isdir(EXTENSION_DIR):
             if out and not "".join(out).endswith("\n"): out.append("\n")
             out.append("--load-extension=" + EXTENSION_DIR + "\n")
         updated = "".join(out)
@@ -225,7 +226,9 @@ def install_watch():
     path_unit = os.path.join(directory, UNIT + ".path")
     service_body = "[Unit]\nDescription=Finish Geo Guess Chromium cleanup after plugin remove\n[Service]\nType=oneshot\nExecStart=/usr/bin/python3 %s --sync\n" % UNINSTALL_DST
     path_body = "[Unit]\nDescription=Watch for Geo Guess plugin folder removal\n[Path]\nPathModified=%s\nPathModified=%s\n[Install]\nWantedBy=default.target\n" % (os.path.join(XDG_CONFIG, "omarchy", "plugins"), os.path.join(XDG_CONFIG, "omarchy", "shell.json"))
+    before = (read_text(service), read_text(path_unit))
     if not (write_owned(service, service_body) and write_owned(path_unit, path_body)): return
+    if (read_text(service), read_text(path_unit)) == before: return
     try:
         subprocess.run(["systemctl", "--user", "daemon-reload"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=False)
         subprocess.run(["systemctl", "--user", "enable", "--now", UNIT + ".path"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=False)
@@ -249,7 +252,11 @@ def install_copy():
     content = read_text(src)
     if content is None or not content.startswith("#!/usr/bin/env python3"): return False
     existing = read_text(UNINSTALL_DST)
-    if os.path.lexists(UNINSTALL_DST) and (not regular(UNINSTALL_DST) or read_text(OWNER_RECORD) != owner_record(existing or "")): return False
+    if os.path.lexists(OWNER_RECORD) and not regular(OWNER_RECORD): return False
+    if os.path.lexists(UNINSTALL_DST):
+        if not regular(UNINSTALL_DST) or read_text(OWNER_RECORD) != owner_record(existing or ""): return False
+    elif os.path.lexists(OWNER_RECORD):
+        return False
     if existing != content and not atomic_write(UNINSTALL_DST, content, 0o755): return False
     return atomic_write(OWNER_RECORD, owner_record(content), 0o600)
 

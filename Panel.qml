@@ -69,6 +69,24 @@ Panel {
     return "https://www.google.com/maps/@?api=1&map_action=map&center=" + lat.toFixed(6) + "," + lon.toFixed(6) + "&zoom=14"
   }
 
+  function mapsUrlOnly(url) {
+    var s = String(url || "").split("#")[0]
+    if (s.length < 24 || s.length > 4096) return ""
+    if (!/^https:\/\/(www\.google\.com\/maps|maps\.google\.com)\//.test(s)) return ""
+    if (!/^[A-Za-z0-9._~:/?#@!+=&%,-]+$/.test(s)) return ""
+    return s
+  }
+
+  function launchMaps(url, hash) {
+    var safe = mapsUrlOnly(url)
+    if (!safe) return false
+    var openPath = lookupPath.replace(/streetview-lookup$/, "open-streetview")
+    if (!openPath || /['"\\\s]/.test(openPath)) return false
+    launchProc.command = [openPath, hash ? (safe + hash) : safe]
+    launchProc.running = true
+    return true
+  }
+
   function startLookup(lat, lon, name) {
     resolving = true
     lookupProc.command = name
@@ -121,7 +139,13 @@ Panel {
       }
       selectedMarker = selectionPin
       landmarkView = true
-      panoUrl = String(marker.url)
+      var markerUrl = mapsUrlOnly(marker.url)
+      if (!markerUrl) {
+        resolveLatLon(flat, flon, String(marker.name || ""), marker)
+        landmarkView = true
+        return
+      }
+      panoUrl = markerUrl
       panoMapUrl = mapLink(flat, flon)
       statusText = pickedLabel
       resolving = false
@@ -132,23 +156,19 @@ Panel {
   }
 
   function openBrowse() {
-    if (!panoUrl || !root.bar) return
-    var openPath = lookupPath.replace(/streetview-lookup$/, "open-streetview")
-    var url = String(panoUrl).split("#")[0]
-    root.bar.run("'" + openPath + "' '" + url + "'")
+    if (!launchMaps(panoUrl, "")) return
     close()
   }
 
   function openStreetView() {
-    if (!panoUrl || !root.bar) return
-    var openPath = lookupPath.replace(/streetview-lookup$/, "open-streetview")
-    var roundUrl = String(panoUrl).split("#")[0] + "#geoguess"
-    root.bar.run("'" + openPath + "' '" + roundUrl + "'")
+    launchMaps(panoUrl, "#geoguess")
   }
 
   function openMap() {
-    if (!panoMapUrl || !root.bar) return
-    root.bar.run("omarchy-launch-webapp '" + panoMapUrl + "'")
+    var safe = mapsUrlOnly(panoMapUrl)
+    if (!safe) return
+    launchProc.command = ["omarchy-launch-webapp", safe]
+    launchProc.running = true
   }
 
   function distanceKm(lat1, lon1, lat2, lon2) {
@@ -297,10 +317,20 @@ Panel {
           if (root.lookupPurpose === "round") {
             if (doc && doc.ok === true && doc.url && isFinite(doc.lat) && isFinite(doc.lon)
                 && root.roundPhase === "seeking") {
+              var roundUrl = root.mapsUrlOnly(doc.url)
+              if (!roundUrl) {
+                if (root.roundAttempts < 4) root.seekRound()
+                else {
+                  root.playing = false
+                  root.roundPhase = ""
+                  root.lookupPurpose = "browse"
+                  root.statusText = "No panorama for this round"
+                }
+              } else {
               root.answerLat = doc.lat
               root.answerLon = doc.lon
               root.answerName = doc.name ? String(doc.name) : ""
-              root.panoUrl = String(doc.url)
+              root.panoUrl = roundUrl
               root.panoMapUrl = ""
               root.pickedLabel = ""
               root.statusText = ""
@@ -308,6 +338,7 @@ Panel {
               root.playing = false
               root.roundPhase = ""
               root.lookupPurpose = "browse"
+              }
             } else if (root.roundAttempts < 4) {
               root.seekRound()
             } else {
@@ -317,8 +348,15 @@ Panel {
               root.statusText = (doc && doc.error) ? String(doc.error) : "No panorama for this round"
             }
           } else if (doc && doc.ok === true && doc.url) {
-            root.panoUrl = root.landmarkView && doc.placeUrl ? String(doc.placeUrl) : String(doc.url)
-            if (doc.mapUrl) root.panoMapUrl = String(doc.mapUrl)
+            var browseUrl = root.mapsUrlOnly(root.landmarkView && doc.placeUrl ? doc.placeUrl : doc.url)
+            root.panoUrl = browseUrl
+            if (doc.mapUrl) {
+              var mapUrl = root.mapsUrlOnly(doc.mapUrl)
+              if (mapUrl) root.panoMapUrl = mapUrl
+            }
+            if (!browseUrl) {
+              root.statusText = "No panorama near " + root.pickedLabel
+            } else {
             var away = ""
             if (isFinite(doc.distanceMeters) && doc.distanceMeters >= 100) {
               away = doc.distanceMeters >= 1000
@@ -328,6 +366,7 @@ Panel {
             var place = doc.name ? String(doc.name) : root.pickedLabel
             root.statusText = (root.selectedMarker ? "★ " : "Nearest panorama · ")
               + place + away + " — ready to open"
+            }
           } else {
             root.panoUrl = ""
             root.statusText = (doc && doc.error) ? String(doc.error) : "No panorama near " + root.pickedLabel
@@ -354,6 +393,11 @@ Panel {
       }
       root.resolving = false
     }
+  }
+
+  Process {
+    id: launchProc
+    command: []
   }
 
   KeyboardPanel {

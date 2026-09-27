@@ -91,7 +91,12 @@ function tileXY(lat, lon) {
   return [Math.max(0, x), Math.max(0, y)]
 }
 
+function safePanoid(pano) {
+  return typeof pano === "string" && /^[A-Za-z0-9_-]{4,200}$/.test(pano)
+}
+
 function permalink(pano, lat, lon) {
+  if (!safePanoid(pano)) return ""
   var kind = (pano.indexOf("CIHM0og") === 0 || pano.length > 22) ? 10 : 2
   return "https://www.google.com/maps/@" + lat + "," + lon + ",3a,75y,0h,90t/data=!3m4!1e1!3m2!1s" + pano + "!2e" + kind
 }
@@ -144,6 +149,7 @@ async function officialPanos(tileX, tileY) {
   var match
   var re = /\[2,"([^"]+)"\],null,\[\[null,null,(-?\d+\.\d+),(-?\d+\.\d+)\]/g
   while ((match = re.exec(text))) {
+    if (!safePanoid(match[1])) continue
     if (match[1].indexOf("CIHM0og") === 0 || match[1].length > 22) continue
     panos.push({ pano: match[1], lat: parseFloat(match[2]), lon: parseFloat(match[3]) })
   }
@@ -160,7 +166,8 @@ async function localStreet() {
     var panos = await officialPanos(tile[0], tile[1])
     if (panos.length) {
       var pano = pick(panos)
-      return { ok: true, url: permalink(pano.pano, pano.lat, pano.lon) }
+      var url = permalink(pano.pano, pano.lat, pano.lon)
+      if (url) return { ok: true, url: url }
     }
   }
   return { ok: false, error: "No walkable Street View found" }

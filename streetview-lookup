@@ -81,13 +81,26 @@ def is_third_party_panoid(panoid):
     return panoid.startswith("CIHM0og") or len(panoid) > 22
 
 
+PANO_ID_RE = re.compile(r"^[A-Za-z0-9_-]{4,200}$")
+
+
+def safe_panoid(panoid):
+    """Reject panorama ids that could break a quoted shell command or URL."""
+    if not isinstance(panoid, str) or not PANO_ID_RE.fullmatch(panoid):
+        return None
+    return panoid
+
+
 def permalink(pano_id, lat, lon, heading=0.0, pitch=90.0, fov=75.0):
     # streetlevel build_permalink. The official viewpoint URL does not open
     # third-party panorama ids, and it fails when the click is off a road.
-    kind = 10 if is_third_party_panoid(pano_id) else 2
+    panoid = safe_panoid(pano_id)
+    if not panoid:
+        return ""
+    kind = 10 if is_third_party_panoid(panoid) else 2
     return (
         f"https://www.google.com/maps/@{lat},{lon},3a,{fov}y,{heading}h,{pitch}t"
-        f"/data=!3m4!1e1!3m2!1s{pano_id}!2e{kind}"
+        f"/data=!3m4!1e1!3m2!1s{panoid}!2e{kind}"
     )
 
 
@@ -137,26 +150,34 @@ def place_page(name, pano_id, lat, lon, feature_id="", place_lat=None, place_lon
     # Same shape as a place photo that has the bottom arrows: the panorama,
     # then the place feature id. A visitor photosphere link has neither.
     from urllib.parse import quote
+    panoid = safe_panoid(pano_id)
+    if not panoid:
+        return ""
     slug = quote((name or "Landmark").replace("/", " "), safe="")
-    kind = 10 if is_third_party_panoid(pano_id) else 0
+    kind = 10 if is_third_party_panoid(panoid) else 0
     thumb = quote(
         "https://streetviewpixels-pa.googleapis.com/v1/thumbnail"
-        f"?cb_client=maps_sv.tactile&w=900&h=600&pitch=0&panoid={pano_id}&yaw={heading}",
+        f"?cb_client=maps_sv.tactile&w=900&h=600&pitch=0&panoid={panoid}&yaw={heading}",
         safe="",
     )
     url = (
         f"https://www.google.com/maps/place/{slug}/@{lat},{lon},3a,{fov}y,{heading}h,{pitch}t"
-        f"/data=!3m7!1e1!3m5!1s{pano_id}!2e{kind}!6s{thumb}!7i13312!8i6656"
+        f"/data=!3m7!1e1!3m5!1s{panoid}!2e{kind}!6s{thumb}!7i13312!8i6656"
     )
     if feature_id:
-        plat = place_lat if place_lat is not None else lat
-        plon = place_lon if place_lon is not None else lon
-        url += f"!4m9!3m8!1s{feature_id}!8m2!3d{plat}!4d{plon}!10e5!14m1!1BCgIgARICCAI"
+        if not re.fullmatch(r"0x[0-9a-f]+:0x[0-9a-f]+", feature_id):
+            feature_id = ""
+        else:
+            plat = place_lat if place_lat is not None else lat
+            plon = place_lon if place_lon is not None else lon
+            url += f"!4m9!3m8!1s{feature_id}!8m2!3d{plat}!4d{plon}!10e5!14m1!1BCgIgARICCAI"
     return url
 
 
 def place_photo(feature_id):
     # First Street View photo on the place. This is the image the bottom arrows page through.
+    if not isinstance(feature_id, str) or not re.fullmatch(r"0x[0-9a-f]+:0x[0-9a-f]+", feature_id):
+        return None
     url = (
         "https://www.google.com/maps/rpc/photo/listentityphotos?authuser=0&hl=en&gl=us&pb="
         f"!1e2!3m5!1s{feature_id}!9e0!11m2!1m1!1e1!15m2!1m1!4s"
@@ -176,8 +197,11 @@ def place_photo(feature_id):
     )
     if not ident or not camera:
         return None
+    panoid = safe_panoid(ident.group(1))
+    if not panoid:
+        return None
     return {
-        "pano": ident.group(1),
+        "pano": panoid,
         "lon": float(camera.group(1)),
         "lat": float(camera.group(2)),
         "heading": float(camera.group(3)),
@@ -291,9 +315,10 @@ def official_panos(tile_x, tile_y):
     )
     panos = []
     for pano_id, lat, lon in found:
-        if is_third_party_panoid(pano_id):
+        panoid = safe_panoid(pano_id)
+        if not panoid or is_third_party_panoid(panoid):
             continue
-        panos.append({"pano": pano_id, "lat": float(lat), "lon": float(lon)})
+        panos.append({"pano": panoid, "lat": float(lat), "lon": float(lon)})
     return panos
 
 
@@ -347,12 +372,15 @@ def nearest_panorama(lat, lon, radius=SEARCH_RADIUS_METERS):
     found = re.search(r'\[\[1\],\[(?:2|10),"([^"]+)"\]', text)
     if not found:
         return None
+    panoid = safe_panoid(found.group(1))
+    if not panoid:
+        return None
     snapped = re.search(r'\[null,null,(-?\d+\.\d+),(-?\d+\.\d+)\]', text)
     name = re.search(r'\[\["([^"]+)"\]', text)
     snapped_lat = float(snapped.group(1)) if snapped else lat
     snapped_lon = float(snapped.group(2)) if snapped else lon
     return {
-        "pano": found.group(1),
+        "pano": panoid,
         "lat": snapped_lat,
         "lon": snapped_lon,
         "name": name.group(1) if name else "",
@@ -372,6 +400,8 @@ def cmd_resolve(args):
     if not pano:
         die(f"No Street View within {SEARCH_RADIUS_METERS // 1000} km of this spot")
     url = permalink(pano["pano"], pano["lat"], pano["lon"])
+    if not url:
+        die("Street View returned an unsafe panorama id")
     asked = " ".join(args[2:]).strip()
     label = asked or pano["name"] or f"{pano['lat']:.4f}, {pano['lon']:.4f}"
     gallery = landmark_url(asked, lat, lon) if asked else ""
@@ -401,11 +431,14 @@ def cmd_marker_url(args):
     pano = nearest_panorama(lat, lon)
     if not pano:
         die(f"No Street View within {SEARCH_RADIUS_METERS // 1000} km of this spot")
+    url = permalink(pano["pano"], pano["lat"], pano["lon"])
+    if not url:
+        die("Street View returned an unsafe panorama id")
     print(json.dumps({
         "ok": True,
         "lat": pano["lat"],
         "lon": pano["lon"],
-        "url": permalink(pano["pano"], pano["lat"], pano["lon"]),
+        "url": url,
         "mapUrl": map_url(pano["lat"], pano["lon"]),
         "name": name or pano["name"],
         "pano": pano["pano"],
@@ -418,6 +451,9 @@ def cmd_street(args):
     pano = random_street_panorama(region)
     if not pano:
         die("No walkable Street View found")
+    url = permalink(pano["pano"], pano["lat"], pano["lon"])
+    if not url:
+        die("Street View returned an unsafe panorama id")
     print(json.dumps({
         "ok": True,
         "lat": pano["lat"],
@@ -425,7 +461,7 @@ def cmd_street(args):
         "pano": pano["pano"],
         "name": "",
         "distanceMeters": 0,
-        "url": permalink(pano["pano"], pano["lat"], pano["lon"]),
+        "url": url,
         "mapUrl": "",
         "label": "",
     }))
