@@ -6,9 +6,8 @@ import qs.Commons
 import qs.Ui
 import "StreetModel.js" as Geo
 
-// Geo Guess: globe for a panorama guessing round.
-// Click anywhere on the globe -> nearest panorama opens as an Omarchy webapp.
-// Gold markers (treasures.json) flag special/historic multi-view places.
+// Geo Guess: globe for exploring Street View and playing a guessing round.
+// Click the globe to pick a spot. Play a round to open a hidden panorama.
 Panel {
   id: root
   moduleName: "lessunderrated.geoguess"
@@ -81,6 +80,7 @@ Panel {
   function resolveLatLon(lat, lon, label, marker) {
     var flat = Number(lat), flon = Number(lon)
     if (!isFinite(flat) || !isFinite(flon)) return
+    lookupPurpose = "browse"
     pickedLat = flat
     pickedLon = flon
     pickedLabel = label || (flat.toFixed(4) + ", " + flon.toFixed(4))
@@ -303,18 +303,19 @@ Panel {
         try {
           var doc = JSON.parse(String(text || "{}"))
           if (root.lookupPurpose === "round") {
-            if (doc && doc.ok === true && doc.url && isFinite(doc.lat) && isFinite(doc.lon)) {
+            if (doc && doc.ok === true && doc.url && isFinite(doc.lat) && isFinite(doc.lon)
+                && root.roundPhase === "seeking") {
               root.answerLat = doc.lat
               root.answerLon = doc.lon
               root.answerName = doc.name ? String(doc.name) : ""
               root.panoUrl = String(doc.url)
               root.panoMapUrl = ""
               root.pickedLabel = ""
-              root.roundPhase = "guess"
               root.statusText = ""
               root.openStreetView()
               root.playing = false
               root.roundPhase = ""
+              root.lookupPurpose = "browse"
             } else if (root.roundAttempts < 4) {
               root.seekRound()
             } else {
@@ -383,7 +384,7 @@ Panel {
         else if (t === "g" || t === "G") root.playing ? root.stopRound() : root.startRound()
         else if (!root.playing && (t === "r" || t === "R")) root.dropRandom()
         else if (!root.playing && (t === "o" || t === "O" || t === "\r") && root.panoUrl)
-          root.landmarkView ? root.openBrowse() : root.openStreetView()
+          root.openBrowse()
       }
 
       Column {
@@ -434,12 +435,16 @@ Panel {
             textColor: root.bar.foreground
             fontFamily: root.bar.fontFamily
             onStationActivated: function(station) {
-              if (root.playing) return
+              if (root.roundPhase === "guess") return
+              if (root.playing || root.roundPhase === "seeking") root.stopRound()
               root.activateMarker(station)
             }
             onCoordinateActivated: function(lat, lon) {
               if (root.roundPhase === "guess") root.submitGuess(lat, lon)
-              else if (!root.playing) root.resolveLatLon(lat, lon, "")
+              else {
+                if (root.playing || root.roundPhase === "seeking") root.stopRound()
+                root.resolveLatLon(lat, lon, "")
+              }
             }
             onCountryActivated: function(code, name) {
               // Precise lat/lon already handled via onCoordinateActivated.
@@ -551,7 +556,7 @@ Panel {
             tooltipText: root.landmarkView ? "Open this landmark panorama" : "Open the nearest panorama found for this spot"
             foreground: root.bar.foreground
             fontFamily: root.bar.fontFamily
-            onClicked: root.landmarkView ? root.openBrowse() : root.openStreetView()
+            onClicked: root.openBrowse()
           }
         }
 
@@ -581,7 +586,7 @@ Panel {
             foreground: root.bar.foreground
             fontFamily: root.bar.fontFamily
             enabled: root.panoUrl !== ""
-            onClicked: root.landmarkView ? root.openBrowse() : root.openStreetView()
+            onClicked: root.openBrowse()
           }
           Button {
             iconText: ""

@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Geo Guess",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxsMy9FtwII4xz7XiQbVGsrlItc/8F9nt8Jj5ddvdYG60WjzOUApxXiddz3XaE22M7n8pqFURAiEk8RTK/BGj0Ii82FOVMJsDgicPT0jtiL6IBFYWp8xUEpMuoxZnSbZCgqosxT8rFxMrxzbmmKW60KLR1HJhxptfJ52DOV2WBf9FHpH9p3NXaT8rH4JXUpclsXUrDmDSwB7Ll1kO2UHqt4MvSPB4a7n6+WdA2GAIqMkKOMdpnwnb5JJZklEazTMFHEFFiiqy9x+bF6Uc8PwPZBn8PqQ7E0ITJUHCf6XO1erkT/KoNFo5elC3Mgk1IjPhMqLEBg2G05TyPqn8ftX/WQIDAQAB",
   "permissions": ["nativeMessaging", "windows"],
   "host_permissions": [

@@ -5,7 +5,7 @@
   "version": "0.2.0",
   "author": "LessUnderRated",
   "license": "MIT",
-  "description": "Globe for a panorama guessing game. Pick a spot or play a round and guess where you are.",
+  "description": "Street View explorer and geolocation game. A Chromium extension can hide Maps chrome during a round; no API keys.",
   "keywords": ["guess", "maps", "globe", "travel", "panorama"],
   "kinds": ["bar-widget"],
   "entryPoints": {

@@ -1,8 +1,14 @@
 /* Maps redraws its chrome after load, and the place name is not a stable id.
    Only rounds opened with #geoguess are stripped. A normal Maps tab is left alone. */
 (function () {
-  if (location.hash.indexOf("geoguess") !== -1) sessionStorage.setItem("geoguess", "1")
-  if (sessionStorage.getItem("geoguess") !== "1") return
+  function playingRound() {
+    return /#geoguess(?:$|[^a-z])/i.test(String(location.hash))
+  }
+  var roundOn = playingRound()
+  window.addEventListener("hashchange", function () {
+    if (playingRound() !== roundOn) location.reload()
+  })
+  if (!roundOn) return
 
   var style = document.createElement("style")
   style.textContent = [
