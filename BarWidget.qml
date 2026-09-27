@@ -1,5 +1,6 @@
 import QtQuick
 import Quickshell
+import Quickshell.Io
 import qs.Ui
 
 BarWidget {
@@ -50,14 +51,15 @@ BarWidget {
   onBarChanged: injectPanel()
 
   function ensureRuntime() {
-    Quickshell.execDetached(["python3", root.pluginDir + "/uninstall.py", "setup"])
+    cleanupProc.command = ["/usr/bin/python3", root.pluginDir + "/uninstall.py", "setup"]
+    cleanupProc.running = true
   }
 
-  function teardownRuntime() {
+  function disableRuntime() {
     if (root.tearingDown) return
     root.tearingDown = true
-    var script = root.uninstallScript
-    Quickshell.execDetached(["python3", script, "--unless-enabled"])
+    Quickshell.execDetached(["/usr/bin/python3", root.pluginDir + "/uninstall.py", "--disable"])
+    Quickshell.execDetached(["/usr/bin/python3", root.uninstallScript, "--disable"])
   }
 
   onPluginRegistryChanged: {
@@ -75,10 +77,7 @@ BarWidget {
         root.ensureRuntime()
         return
       }
-    if (root.wasEnabled) {
-        root.tearingDown = true
-        Quickshell.execDetached(["python3", root.pluginDir + "/uninstall.py", "--disable"])
-      }
+      if (root.wasEnabled) root.disableRuntime()
     }
   }
 
@@ -88,7 +87,17 @@ BarWidget {
     root.ensureRuntime()
   }
 
-  Component.onDestruction: root.teardownRuntime()
+  Component.onDestruction: {
+    if (root.pluginRegistry && root.pluginRegistry.enabled === false)
+      root.disableRuntime()
+    else
+      Quickshell.execDetached(["/usr/bin/python3", root.uninstallScript, "--unless-enabled"])
+  }
+
+  Process {
+    id: cleanupProc
+    running: false
+  }
 
   Loader {
     id: panelLoader

@@ -220,7 +220,7 @@ def install_watch():
             "Description=Finish Geo Guess Chromium cleanup after plugin remove\n"
             "[Service]\n"
             "Type=oneshot\n"
-            "ExecStart=/usr/bin/python3 %s --remove-if-missing\n" % UNINSTALL_DST
+            "ExecStart=/usr/bin/python3 %s --sync\n" % UNINSTALL_DST
         )
     with open(path_unit, "w", encoding="utf-8") as fh:
         fh.write(
@@ -228,6 +228,7 @@ def install_watch():
             "Description=Watch for Geo Guess plugin folder removal\n"
             "[Path]\n"
             "PathModified=%s\n" % os.path.join(XDG_CONFIG, "omarchy", "plugins")
+            + "PathModified=%s\n" % os.path.join(XDG_CONFIG, "omarchy", "shell.json")
             + "[Install]\n"
             "WantedBy=default.target\n"
         )
@@ -328,10 +329,26 @@ def cmd_remove():
     return 0
 
 
+def cmd_sync():
+    if not os.path.isdir(PLUGIN_DIR):
+        full_clean()
+        print("ok")
+        return 0
+    if plugin_is_enabled_in_shell_config():
+        rewrite_flags(add=True)
+        print("enabled")
+        return 0
+    light_clean()
+    print("disabled")
+    return 0
+
+
 def main():
     args = sys.argv[1:]
     if args[:1] == ["setup"]:
         return cmd_setup()
+    if "--sync" in args:
+        return cmd_sync()
     if "--remove" in args or "--remove-if-missing" in args:
         return cmd_remove()
     if not os.path.isdir(PLUGIN_DIR):
