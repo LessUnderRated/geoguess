@@ -20,9 +20,9 @@ Click the globe on the bar to open or close the panel. Press Escape to close it.
 
 ## Configure
 
-Guess chrome lives in `guess-hide/`. Load that folder yourself with Chromium `--load-extension` if you want it. The optional native host is `scripts/install-guess-host.sh`. Neither runs on plugin add.
+Guess chrome lives in `guess-hide/`. Enabling the plugin adds that folder to Chromium `--load-extension`. Disable or `omarchy plugin remove` takes it back out and deletes the optional native-messaging host. Fully quit Chromium after either change.
 
-Needs Python 3, network access to Google Maps / Street View, and `omarchy-launch-webapp`. No sudo. Plugin add does not overwrite user config.
+Needs Python 3, network access to Google Maps / Street View, and `omarchy-launch-webapp`. No sudo.
 
 ## Remove
 
