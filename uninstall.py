@@ -1,17 +1,14 @@
 #!/usr/bin/env python3
-"""Install or remove Geo Guess Chromium bits.
+"""Manage Geo Guess runtime state without touching unrelated user configuration.
 
-Disable: strip --load-extension and native-host files. Keep the plugin folder
-and Chromium extension settings so enable can put the flag back.
-
-Remove: that, plus this extension's Chromium profile data, the helper copy,
-and the user systemd path that watches for a deleted plugin folder.
+Only files containing Geo Guess ownership markers are changed or removed. Browser
+profile data is intentionally left untouched; Chromium owns that configuration.
 """
 import json
 import os
-import shutil
 import subprocess
 import sys
+import tempfile
 
 HOME = os.environ.get("HOME", "")
 XDG_CONFIG = os.environ.get("XDG_CONFIG_HOME") or os.path.join(HOME, ".config")
@@ -19,11 +16,11 @@ PLUGIN_ID = "lessunderrated.geoguess"
 PLUGIN_DIR = os.path.join(XDG_CONFIG, "omarchy", "plugins", PLUGIN_ID)
 EXTENSION_DIR = os.path.join(PLUGIN_DIR, "guess-hide", "unpacked")
 UNINSTALL_DST = os.path.join(XDG_CONFIG, "omarchy", f"{PLUGIN_ID}.uninstall.py")
-MARKER = "lessunderrated.geoguess/guess-hide"
 HOST_NAME = "com.lessunderrated.geoguess.json"
 EXTENSION_ID = "ghhlkacefalngacompmfpiekbmblamgg"
 UNIT = "lessunderrated-geoguess-gone"
 OWNED_LINE = "# Owned-by: lessunderrated.geoguess"
+HOST_OWNER = "lessunderrated.geoguess"
 FLAG_FILES = (
     os.path.join(XDG_CONFIG, "chromium-flags.conf"),
     os.path.join(XDG_CONFIG, "chromium", "chromium-flags.conf"),
@@ -32,12 +29,35 @@ HOST_FILES = (
     os.path.join(XDG_CONFIG, "chromium", "NativeMessagingHosts", HOST_NAME),
     os.path.join(XDG_CONFIG, "chromium", "Default", "NativeMessagingHosts", HOST_NAME),
 )
-BROWSER_CONFIGS = (
-    os.path.join(XDG_CONFIG, "chromium"),
-    os.path.join(XDG_CONFIG, "google-chrome"),
-    os.path.join(XDG_CONFIG, "google-chrome-unstable"),
-    os.path.join(XDG_CONFIG, "BraveSoftware", "Brave-Browser"),
-)
+
+
+def regular(path):
+    """Return true only for a non-symlink regular file."""
+    return os.path.isfile(path) and not os.path.islink(path)
+
+
+def atomic_write(path, text, mode=None):
+    """Replace our regular file without following links or leaving partial data."""
+    if os.path.lexists(path) and not regular(path):
+        return False
+    directory = os.path.dirname(path)
+    os.makedirs(directory, exist_ok=True)
+    if mode is None and regular(path):
+        mode = os.stat(path).st_mode & 0o777
+    if mode is None:
+        mode = 0o600
+    fd, temporary = tempfile.mkstemp(prefix=".geoguess-", dir=directory, text=True)
+    try:
+        os.fchmod(fd, mode)
+        with os.fdopen(fd, "w", encoding="utf-8", newline="") as stream:
+            stream.write(text)
+        os.replace(temporary, path)
+        return True
+    finally:
+        try:
+            os.unlink(temporary)
+        except FileNotFoundError:
+            pass
 
 
 def plugin_is_enabled_in_shell_config():
@@ -62,148 +82,79 @@ def plugin_is_enabled_in_shell_config():
     return found(config.get("bar")) or found(config.get("plugins")) or found(config.get("layout"))
 
 
-def split_extensions(value):
-    raw = value.split("=", 1)[-1].strip()
-    if not raw:
-        return []
-    return [part for part in raw.split(",") if part]
-
-
-def join_line(paths):
-    return "--load-extension=" + ",".join(paths)
+def extension_path(path):
+    return os.path.normpath(path).replace("\\", "/") == os.path.normpath(EXTENSION_DIR).replace("\\", "/")
 
 
 def rewrite_flags(add=False, remove=False):
     for path in FLAG_FILES:
-        try:
-            if not os.path.isfile(path):
-                continue
-            text = open(path, encoding="utf-8").read()
-        except OSError:
+        if not regular(path):
             continue
-        if not text:
+        try:
+            with open(path, encoding="utf-8", newline="") as fh:
+                text = fh.read()
+        except OSError:
             continue
         lines = text.splitlines(keepends=True)
         out = []
-        seen = False
+        found = False
         for line in lines:
             stripped = line.strip()
             if not stripped.startswith("--load-extension="):
                 out.append(line)
                 continue
-            seen = True
-            keepends = line[len(line.rstrip("\r\n")) :]
-            paths = split_extensions(stripped)
-            filtered = [p for p in paths if MARKER not in p.replace("\\", "/")]
-            if add and os.path.isdir(EXTENSION_DIR):
-                if not any(MARKER in p.replace("\\", "/") for p in filtered):
-                    filtered.append(EXTENSION_DIR)
+            found = True
+            ending = line[len(line.rstrip("\r\n")):]
+            value = stripped.split("=", 1)[1]
+            paths = [item for item in value.split(",") if item]
             if remove:
-                filtered = [p for p in filtered if MARKER not in p.replace("\\", "/")]
-            if not filtered:
-                continue
-            out.append(join_line(filtered) + keepends)
-        if add and not seen and os.path.isdir(EXTENSION_DIR):
+                paths = [item for item in paths if not extension_path(item)]
+            if add and os.path.isdir(EXTENSION_DIR) and EXTENSION_DIR not in paths:
+                paths.append(EXTENSION_DIR)
+            if paths:
+                out.append("--load-extension=" + ",".join(paths) + ending)
+        if add and not found and os.path.isdir(EXTENSION_DIR):
             if out and not "".join(out).endswith("\n"):
                 out.append("\n")
-            out.append(join_line([EXTENSION_DIR]) + "\n")
+            out.append("--load-extension=" + EXTENSION_DIR + "\n")
         next_text = "".join(out)
         if next_text != text:
-            with open(path, "w", encoding="utf-8") as fh:
-                fh.write(next_text)
+            atomic_write(path, next_text)
+
+
+def host_matches(path):
+    if not regular(path):
+        return False
+    try:
+        with open(path, encoding="utf-8") as fh:
+            data = json.load(fh)
+    except (OSError, ValueError):
+        return False
+    return (
+        data.get("x-omarchy-owner") == HOST_OWNER
+        and data.get("name") == "com.lessunderrated.geoguess"
+        and data.get("path") == os.path.join(PLUGIN_DIR, "guess-host")
+        and data.get("allowed_origins") == ["chrome-extension://ghhlkacefalngacompmfpiekbmblamgg/"]
+    )
 
 
 def remove_hosts():
     for path in HOST_FILES:
-        try:
-            os.remove(path)
-        except FileNotFoundError:
-            pass
+        if host_matches(path):
+            try:
+                os.remove(path)
+            except FileNotFoundError:
+                pass
 
 
 def chromium_running():
     for name in ("chromium", "chrome", "brave"):
         try:
-            if subprocess.run(
-                ["pgrep", "-x", name],
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.DEVNULL,
-            ).returncode == 0:
+            if subprocess.run(["pgrep", "-x", name], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL).returncode == 0:
                 return True
         except OSError:
-            continue
+            pass
     return False
-
-
-def profile_dirs(root):
-    if not os.path.isdir(root):
-        return
-    for name in os.listdir(root):
-        if name == "Default" or name.startswith("Profile "):
-            path = os.path.join(root, name)
-            if os.path.isdir(path):
-                yield path
-
-
-def rm_tree(path):
-    shutil.rmtree(path, ignore_errors=True)
-
-
-def scrub_preferences(prefs_path):
-    if chromium_running() or not os.path.isfile(prefs_path):
-        return
-    try:
-        with open(prefs_path, encoding="utf-8") as fh:
-            data = json.load(fh)
-    except (OSError, ValueError):
-        return
-    ext = data.get("extensions")
-    if not isinstance(ext, dict):
-        return
-    changed = False
-    for key in ("settings", "install_signature"):
-        bucket = ext.get(key)
-        if isinstance(bucket, dict) and EXTENSION_ID in bucket:
-            del bucket[EXTENSION_ID]
-            changed = True
-    pinned = data.get("extensions", {}).get("pinned_extensions")
-    if isinstance(pinned, list) and EXTENSION_ID in pinned:
-        data["extensions"]["pinned_extensions"] = [x for x in pinned if x != EXTENSION_ID]
-        changed = True
-    if not changed:
-        return
-    try:
-        with open(prefs_path, "w", encoding="utf-8") as fh:
-            json.dump(data, fh, separators=(",", ":"))
-    except OSError:
-        pass
-
-
-def remove_extension_profile():
-    for root in BROWSER_CONFIGS:
-        for profile in profile_dirs(root):
-            rm_tree(os.path.join(profile, "Local Extension Settings", EXTENSION_ID))
-            rm_tree(os.path.join(profile, "Sync Extension Settings", EXTENSION_ID))
-            rm_tree(os.path.join(profile, "Extension Rules", EXTENSION_ID))
-            rm_tree(os.path.join(profile, "Extension Scripts", EXTENSION_ID))
-            rm_tree(os.path.join(profile, "Extension State", EXTENSION_ID))
-            rm_tree(
-                os.path.join(
-                    profile,
-                    "IndexedDB",
-                    "chrome-extension_" + EXTENSION_ID + "_0.indexeddb.leveldb",
-                )
-            )
-            rm_tree(
-                os.path.join(
-                    profile,
-                    "IndexedDB",
-                    "chrome-extension_" + EXTENSION_ID + "_0.indexeddb.blob",
-                )
-            )
-            storage = os.path.join(profile, "Storage", "ext", EXTENSION_ID)
-            rm_tree(storage)
-            scrub_preferences(os.path.join(profile, "Preferences"))
 
 
 def unit_dir():
@@ -211,115 +162,69 @@ def unit_dir():
 
 
 def we_own(path):
+    if not regular(path):
+        return False
     try:
-        text = open(path, encoding="utf-8").read()
+        with open(path, encoding="utf-8") as fh:
+            return OWNED_LINE in fh.read()
     except OSError:
         return False
-    if OWNED_LINE in text:
-        return True
-    name = os.path.basename(path)
-    return name.startswith(UNIT) and "Geo Guess" in text
 
 
 def write_owned(path, body):
     text = OWNED_LINE + "\n" + body
-    if os.path.isfile(path):
-        if not we_own(path):
-            return False
-        try:
-            existing = open(path, encoding="utf-8").read()
-        except OSError:
-            existing = ""
-        if existing == text:
-            return True
-        shutil.copy2(path, path + ".bak")
-    os.makedirs(os.path.dirname(path), exist_ok=True)
-    with open(path, "w", encoding="utf-8") as fh:
-        fh.write(text)
-    return True
+    if os.path.lexists(path) and not we_own(path):
+        return False
+    try:
+        with open(path, encoding="utf-8") as fh:
+            if fh.read() == text:
+                return True
+    except OSError:
+        pass
+    return atomic_write(path, text, 0o600)
 
 
 def remove_owned(path):
-    if not os.path.isfile(path):
-        return
     if not we_own(path):
         return
     try:
         os.remove(path)
     except FileNotFoundError:
         pass
-    bak = path + ".bak"
-    if os.path.isfile(bak) and we_own(bak):
-        try:
-            os.remove(bak)
-        except FileNotFoundError:
-            pass
 
 
 def install_watch():
     directory = unit_dir()
-    os.makedirs(directory, exist_ok=True)
     service = os.path.join(directory, UNIT + ".service")
     path_unit = os.path.join(directory, UNIT + ".path")
     wrote_service = write_owned(
         service,
-        "[Unit]\n"
-        "Description=Finish Geo Guess Chromium cleanup after plugin remove\n"
-        "[Service]\n"
-        "Type=oneshot\n"
-        "ExecStart=/usr/bin/python3 %s --sync\n" % UNINSTALL_DST,
+        "[Unit]\nDescription=Finish Geo Guess Chromium cleanup after plugin remove\n"
+        "[Service]\nType=oneshot\nExecStart=/usr/bin/python3 %s --sync\n" % UNINSTALL_DST,
     )
     wrote_path = write_owned(
         path_unit,
-        "[Unit]\n"
-        "Description=Watch for Geo Guess plugin folder removal\n"
-        "[Path]\n"
-        "PathModified=%s\n" % os.path.join(XDG_CONFIG, "omarchy", "plugins")
-        + "PathModified=%s\n" % os.path.join(XDG_CONFIG, "omarchy", "shell.json")
-        + "[Install]\n"
-        "WantedBy=default.target\n",
+        "[Unit]\nDescription=Watch for Geo Guess plugin folder removal\n[Path]\n"
+        "PathModified=%s\nPathModified=%s\n[Install]\nWantedBy=default.target\n"
+        % (os.path.join(XDG_CONFIG, "omarchy", "plugins"), os.path.join(XDG_CONFIG, "omarchy", "shell.json")),
     )
     if not (wrote_service and wrote_path):
         return
     try:
-        subprocess.run(
-            ["systemctl", "--user", "daemon-reload"],
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
-            check=False,
-        )
-        subprocess.run(
-            ["systemctl", "--user", "enable", "--now", UNIT + ".path"],
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
-            check=False,
-        )
+        subprocess.run(["systemctl", "--user", "daemon-reload"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=False)
+        subprocess.run(["systemctl", "--user", "enable", "--now", UNIT + ".path"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=False)
     except OSError:
         pass
 
 
 def remove_watch():
-    directory = unit_dir()
-    service = os.path.join(directory, UNIT + ".service")
-    path_unit = os.path.join(directory, UNIT + ".path")
-    ours = (not os.path.isfile(service) or we_own(service)) and (
-        not os.path.isfile(path_unit) or we_own(path_unit)
-    )
-    if not ours:
+    service = os.path.join(unit_dir(), UNIT + ".service")
+    path_unit = os.path.join(unit_dir(), UNIT + ".path")
+    if not ((not os.path.lexists(service) or we_own(service)) and (not os.path.lexists(path_unit) or we_own(path_unit))):
         return
     try:
-        subprocess.run(
-            ["systemctl", "--user", "disable", "--now", UNIT + ".path", UNIT + ".service"],
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
-            check=False,
-        )
-        subprocess.run(
-            ["systemctl", "--user", "daemon-reload"],
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
-            check=False,
-        )
+        subprocess.run(["systemctl", "--user", "disable", "--now", UNIT + ".path", UNIT + ".service"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=False)
+        subprocess.run(["systemctl", "--user", "daemon-reload"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=False)
     except OSError:
         pass
     remove_owned(service)
@@ -328,21 +233,24 @@ def remove_watch():
 
 def install_copy():
     src = os.path.join(PLUGIN_DIR, "uninstall.py")
-    if not os.path.isfile(src):
+    if not regular(src):
         src = os.path.abspath(__file__)
-    if not os.path.isfile(src):
+    if not regular(src):
         return False
-    if os.path.isfile(UNINSTALL_DST):
-        try:
-            existing = open(UNINSTALL_DST, encoding="utf-8").read()
-        except OSError:
-            return False
-        if PLUGIN_ID not in existing:
-            return False
-    os.makedirs(os.path.dirname(UNINSTALL_DST), exist_ok=True)
-    shutil.copy2(src, UNINSTALL_DST)
-    os.chmod(UNINSTALL_DST, 0o755)
-    return True
+    if os.path.lexists(UNINSTALL_DST) and not we_own(UNINSTALL_DST):
+        return False
+    try:
+        with open(src, encoding="utf-8") as fh:
+            content = fh.read()
+    except OSError:
+        return False
+    if not content.startswith("#!/usr/bin/env python3"):
+        return False
+    return atomic_write(UNINSTALL_DST, content, 0o755)
+
+
+def remove_copy():
+    remove_owned(UNINSTALL_DST)
 
 
 def light_clean():
@@ -352,16 +260,14 @@ def light_clean():
 
 def full_clean():
     light_clean()
-    remove_extension_profile()
     remove_watch()
-    try:
-        os.remove(UNINSTALL_DST)
-    except FileNotFoundError:
-        pass
+    remove_copy()
 
 
 def cmd_setup():
-    install_copy()
+    if not install_copy():
+        print("Geo Guess refused to replace an unowned uninstall script", file=sys.stderr)
+        return 1
     install_watch()
     rewrite_flags(add=True)
     print("ok")
