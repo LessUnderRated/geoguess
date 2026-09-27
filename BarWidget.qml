@@ -31,6 +31,7 @@ BarWidget {
 
   function ensureRuntime() {
     if (!root.pluginRegistry || root.pluginRegistry.enabled !== true) return
+    if (cleanupProc.running) return
     cleanupProc.command = ["/usr/bin/python3", root.pluginDir + "/uninstall.py", "setup"]
     cleanupProc.running = true
   }

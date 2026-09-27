@@ -9,10 +9,14 @@ import tempfile
 
 HOME = os.environ.get("HOME", "")
 XDG_CONFIG = os.environ.get("XDG_CONFIG_HOME") or os.path.join(HOME, ".config")
+# Omarchy's PluginRegistry and plugin catalog always use ~/.config/omarchy,
+# even when XDG_CONFIG_HOME points somewhere else. Chromium and systemd follow XDG.
+OMARCHY_CONFIG = os.path.join(HOME, ".config", "omarchy")
 PLUGIN_ID = "lessunderrated.geoguess"
-PLUGIN_DIR = os.path.join(XDG_CONFIG, "omarchy", "plugins", PLUGIN_ID)
+PLUGIN_DIR = os.path.join(OMARCHY_CONFIG, "plugins", PLUGIN_ID)
 EXTENSION_DIR = os.path.join(PLUGIN_DIR, "guess-hide", "unpacked")
-UNINSTALL_DST = os.path.join(XDG_CONFIG, "omarchy", f"{PLUGIN_ID}.uninstall.py")
+UNINSTALL_DST = os.path.join(OMARCHY_CONFIG, f"{PLUGIN_ID}.uninstall.py")
+MAX_CONFIG_BYTES = 1024 * 1024
 OWNER_RECORD = UNINSTALL_DST + ".owner"
 HOST_NAME = "com.lessunderrated.geoguess.json"
 EXTENSION_ID = "ghhlkacefalngacompmfpiekbmblamgg"
@@ -62,19 +66,31 @@ def owned_text(body):
     return OWNED_PREFIX + digest(body) + "\n" + body
 
 
-def read_text(path):
+def read_text(path, limit=MAX_CONFIG_BYTES):
     try:
-        with open(path, encoding="utf-8") as fh:
-            return fh.read()
+        with open(path, "rb") as fh:
+            data = fh.read(limit + 1)
     except OSError:
+        return None
+    if len(data) > limit:
+        return None
+    try:
+        return data.decode("utf-8")
+    except UnicodeDecodeError:
         return None
 
 
 def plugin_is_enabled_in_shell_config():
+    path = os.path.join(OMARCHY_CONFIG, "shell.json")
+    text = read_text(path)
+    if text is None:
+        try:
+            return os.path.isfile(path) and os.path.getsize(path) > MAX_CONFIG_BYTES
+        except OSError:
+            return False
     try:
-        with open(os.path.join(XDG_CONFIG, "omarchy", "shell.json"), encoding="utf-8") as fh:
-            config = json.load(fh)
-    except (OSError, ValueError):
+        config = json.loads(text)
+    except ValueError:
         return False
     if PLUGIN_ID in (config.get("disabledPlugins") or []):
         return False
@@ -225,7 +241,7 @@ def install_watch():
     service = os.path.join(directory, UNIT + ".service")
     path_unit = os.path.join(directory, UNIT + ".path")
     service_body = "[Unit]\nDescription=Finish Geo Guess Chromium cleanup after plugin remove\n[Service]\nType=oneshot\nExecStart=/usr/bin/python3 %s --sync\n" % UNINSTALL_DST
-    path_body = "[Unit]\nDescription=Watch for Geo Guess plugin folder removal\n[Path]\nPathModified=%s\nPathModified=%s\n[Install]\nWantedBy=default.target\n" % (os.path.join(XDG_CONFIG, "omarchy", "plugins"), os.path.join(XDG_CONFIG, "omarchy", "shell.json"))
+    path_body = "[Unit]\nDescription=Watch for Geo Guess plugin folder removal\n[Path]\nPathModified=%s\nPathModified=%s\n[Install]\nWantedBy=default.target\n" % (os.path.join(OMARCHY_CONFIG, "plugins"), os.path.join(OMARCHY_CONFIG, "shell.json"))
     before = (read_text(service), read_text(path_unit))
     if not (write_owned(service, service_body) and write_owned(path_unit, path_body)): return
     if (read_text(service), read_text(path_unit)) == before: return

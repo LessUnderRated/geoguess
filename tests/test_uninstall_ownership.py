@@ -97,6 +97,35 @@ class UninstallOwnershipTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(self.read(self.service), edited)
 
+    def test_setup_keeps_plugin_files_under_home_config_when_xdg_differs(self):
+        xdg = tempfile.mkdtemp(prefix="geoguess-xdg-")
+        self.addCleanup(shutil.rmtree, xdg, ignore_errors=True)
+        env = os.environ.copy()
+        env["HOME"] = self.home
+        env["XDG_CONFIG_HOME"] = xdg
+        result = subprocess.run(
+            [sys.executable, UNINSTALL_SRC, "setup"],
+            cwd=REPO,
+            env=env,
+            capture_output=True,
+            text=True,
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertTrue(os.path.isfile(self.dst))
+        self.assertFalse(os.path.lexists(os.path.join(xdg, "omarchy", f"{PLUGIN_ID}.uninstall.py")))
+        xdg_service = os.path.join(xdg, "systemd", "user", "lessunderrated-geoguess-gone.service")
+        self.assertTrue(os.path.isfile(xdg_service))
+        self.assertFalse(os.path.isfile(self.service))
+
+    def test_unless_enabled_skips_when_shell_json_is_oversized(self):
+        os.makedirs(os.path.join(self.config, "omarchy"), exist_ok=True)
+        shell = os.path.join(self.config, "omarchy", "shell.json")
+        with open(shell, "w", encoding="utf-8") as fh:
+            fh.write("{" + ("x" * (1024 * 1024 + 10)))
+        result = self.run_uninstall("--unless-enabled")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(result.stdout.strip(), "skip")
+
 
 if __name__ == "__main__":
     unittest.main()

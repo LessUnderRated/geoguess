@@ -16,20 +16,88 @@ if [[ $url == *$'\n'* || $url == *$'\r'* || $url == *"'"* || $url == *'"'* || $u
   exit 2
 fi
 
-before=$(hyprctl clients -j)
-
-omarchy-launch-webapp "$url" &
-
-python3 - "$before" << 'PY'
-import json, re, subprocess, sys, time
+python3 - "$url" << 'PY'
+import json, os, re, select, subprocess, sys, time
 
 ADDRESS_RE = re.compile(r"^0x[0-9a-fA-F]+$")
+MAPS_RE = re.compile(
+    r"^https://(www\.google\.com/maps|maps\.google\.com)/[A-Za-z0-9._~:/?#@!+=&%,-]*$"
+)
+MAX_HYPR_BYTES = 1024 * 1024
 
-before = {client["address"] for client in json.loads(sys.argv[1]) if ADDRESS_RE.fullmatch(str(client.get("address") or ""))}
+url = sys.argv[1]
+base = url.split("#", 1)[0]
+if len(base) < 24 or len(base) > 4096 or not MAPS_RE.fullmatch(base):
+    sys.exit(2)
+
+
+def capped_stdout(argv, timeout, limit):
+    proc = subprocess.Popen(
+        argv,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.DEVNULL,
+        bufsize=0,
+    )
+    chunks = []
+    total = 0
+    deadline = time.monotonic() + timeout
+    fd = proc.stdout.fileno()
+    try:
+        while True:
+            remaining = deadline - time.monotonic()
+            if remaining <= 0:
+                proc.kill()
+                proc.wait()
+                raise subprocess.TimeoutExpired(argv, timeout)
+            ready, _, _ = select.select([fd], [], [], remaining)
+            if not ready:
+                proc.kill()
+                proc.wait()
+                raise subprocess.TimeoutExpired(argv, timeout)
+            buf = os.read(fd, min(8192, limit + 1 - total))
+            if not buf:
+                break
+            total += len(buf)
+            if total > limit:
+                proc.kill()
+                proc.wait()
+                return None
+            chunks.append(buf)
+        proc.wait(timeout=max(0.1, deadline - time.monotonic()))
+        return b"".join(chunks)
+    finally:
+        if proc.stdout:
+            try:
+                proc.stdout.close()
+            except OSError:
+                pass
+        if proc.poll() is None:
+            proc.kill()
+            try:
+                proc.wait(timeout=1)
+            except subprocess.TimeoutExpired:
+                pass
+
+
+def load_clients(raw):
+    if not raw:
+        return []
+    try:
+        data = json.loads(raw.decode("utf-8"))
+    except ValueError:
+        return []
+    if not isinstance(data, list):
+        return []
+    return data
+
 
 def clients():
-    raw = subprocess.check_output(["hyprctl", "clients", "-j"], text=True)
-    return json.loads(raw)
+    try:
+        raw = capped_stdout(["hyprctl", "clients", "-j"], timeout=5, limit=MAX_HYPR_BYTES)
+    except (OSError, subprocess.TimeoutExpired):
+        return []
+    return load_clients(raw)
+
 
 def fullscreen(address):
     if not ADDRESS_RE.fullmatch(address or ""):
@@ -47,14 +115,30 @@ def fullscreen(address):
         ["hyprctl", "dispatch", 'hl.dsp.focus({ window = "%s" })' % target],
         check=False,
     )
-    active = json.loads(subprocess.check_output(["hyprctl", "activewindow", "-j"], text=True))
-    if active.get("address") != address:
+    try:
+        active_raw = capped_stdout(["hyprctl", "activewindow", "-j"], timeout=5, limit=MAX_HYPR_BYTES)
+        active = json.loads(active_raw.decode("utf-8") if active_raw else "{}")
+    except (OSError, subprocess.TimeoutExpired, ValueError, UnicodeDecodeError):
+        return False
+    if not isinstance(active, dict) or active.get("address") != address:
         return False
     subprocess.run(
         ["hyprctl", "dispatch", 'hl.dsp.window.fullscreen({ mode = "fullscreen" })'],
         check=False,
     )
     return True
+
+
+before = {
+    client["address"]
+    for client in clients()
+    if ADDRESS_RE.fullmatch(str(client.get("address") or ""))
+}
+
+try:
+    subprocess.Popen(["omarchy-launch-webapp", url], start_new_session=True)
+except OSError:
+    sys.exit(1)
 
 for _ in range(40):
     time.sleep(0.15)

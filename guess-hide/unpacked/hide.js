@@ -1,6 +1,14 @@
 /* Maps redraws its chrome after load, and the place name is not a stable id.
    Only rounds opened with #geoguess are stripped. A normal Maps tab is left alone. */
 (function () {
+  function mapsUrlOnly(url) {
+    var s = String(url || "").split("#")[0]
+    if (s.length < 24 || s.length > 4096) return ""
+    if (!/^https:\/\/(www\.google\.com\/maps|maps\.google\.com)\//.test(s)) return ""
+    if (!/^[A-Za-z0-9._~:/?#@!+=&%,-]+$/.test(s)) return ""
+    return s
+  }
+
   function playingRound() {
     return /#geoguess(?:$|[^a-z])/i.test(String(location.hash))
   }
@@ -880,8 +888,9 @@
       nextBtn.disabled = true
       nextBtn.textContent = "Finding a place…"
       chrome.runtime.sendMessage({ type: "next" }, function (doc) {
-        if (doc && doc.ok && doc.url) {
-          location.href = String(doc.url).split("#")[0] + "#geoguess"
+        var safe = mapsUrlOnly(doc && doc.url)
+        if (doc && doc.ok && safe) {
+          location.href = safe + "#geoguess"
           return
         }
         nextBtn.disabled = false

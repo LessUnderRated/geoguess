@@ -71,7 +71,8 @@ function nativeNext() {
           resolve(null)
           return
         }
-        resolve(doc && doc.ok && doc.url ? doc : null)
+        var url = mapsUrlOnly(doc && doc.url)
+        resolve(doc && doc.ok && url ? { ok: true, url: url } : null)
       })
     } catch (error) {
       resolve(null)
@@ -93,6 +94,14 @@ function tileXY(lat, lon) {
 
 function safePanoid(pano) {
   return typeof pano === "string" && /^[A-Za-z0-9_-]{4,200}$/.test(pano)
+}
+
+function mapsUrlOnly(url) {
+  var s = String(url || "").split("#")[0]
+  if (s.length < 24 || s.length > 4096) return ""
+  if (!/^https:\/\/(www\.google\.com\/maps|maps\.google\.com)\//.test(s)) return ""
+  if (!/^[A-Za-z0-9._~:/?#@!+=&%,-]+$/.test(s)) return ""
+  return s
 }
 
 function permalink(pano, lat, lon) {
@@ -166,7 +175,7 @@ async function localStreet() {
     var panos = await officialPanos(tile[0], tile[1])
     if (panos.length) {
       var pano = pick(panos)
-      var url = permalink(pano.pano, pano.lat, pano.lon)
+      var url = mapsUrlOnly(permalink(pano.pano, pano.lat, pano.lon))
       if (url) return { ok: true, url: url }
     }
   }

@@ -82,6 +82,10 @@ def is_third_party_panoid(panoid):
 
 
 PANO_ID_RE = re.compile(r"^[A-Za-z0-9_-]{4,200}$")
+MAPS_URL_RE = re.compile(
+    r"^https://(www\.google\.com/maps|maps\.google\.com)/[A-Za-z0-9._~:/?#@!+=&%,-]*$"
+)
+MAX_LOCAL_BYTES = 1024 * 1024
 
 
 def safe_panoid(panoid):
@@ -89,6 +93,18 @@ def safe_panoid(panoid):
     if not isinstance(panoid, str) or not PANO_ID_RE.fullmatch(panoid):
         return None
     return panoid
+
+
+def safe_maps_url(url):
+    """Reject anything that is not a Google Maps https URL."""
+    if not isinstance(url, str):
+        return ""
+    url = url.split("#", 1)[0]
+    if len(url) < 24 or len(url) > 4096:
+        return ""
+    if not MAPS_URL_RE.fullmatch(url):
+        return ""
+    return url
 
 
 def permalink(pano_id, lat, lon, heading=0.0, pitch=90.0, fov=75.0):
@@ -324,8 +340,27 @@ def official_panos(tile_x, tile_y):
 
 def landmark_points():
     path = Path(__file__).with_name("treasures.json")
-    rows = json.loads(path.read_text())
-    return [(float(row["latitude"]), float(row["longitude"])) for row in rows]
+    try:
+        data = path.read_bytes()
+    except OSError:
+        return []
+    if len(data) > MAX_LOCAL_BYTES:
+        return []
+    try:
+        rows = json.loads(data.decode("utf-8"))
+    except (UnicodeDecodeError, ValueError):
+        return []
+    if not isinstance(rows, list):
+        return []
+    points = []
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        try:
+            points.append((float(row["latitude"]), float(row["longitude"])))
+        except (KeyError, TypeError, ValueError):
+            continue
+    return points
 
 
 def random_street_panorama(region="everywhere"):
@@ -400,11 +435,12 @@ def cmd_resolve(args):
     if not pano:
         die(f"No Street View within {SEARCH_RADIUS_METERS // 1000} km of this spot")
     url = permalink(pano["pano"], pano["lat"], pano["lon"])
+    url = safe_maps_url(url)
     if not url:
         die("Street View returned an unsafe panorama id")
     asked = " ".join(args[2:]).strip()
     label = asked or pano["name"] or f"{pano['lat']:.4f}, {pano['lon']:.4f}"
-    gallery = landmark_url(asked, lat, lon) if asked else ""
+    gallery = safe_maps_url(landmark_url(asked, lat, lon) if asked else "")
     if gallery:
         url = gallery
     print(json.dumps({
@@ -418,7 +454,7 @@ def cmd_resolve(args):
         "distanceMeters": pano["distanceMeters"],
         "url": url,
         "placeUrl": gallery or url,
-        "mapUrl": map_url(pano["lat"], pano["lon"]),
+        "mapUrl": safe_maps_url(map_url(pano["lat"], pano["lon"])),
         "label": label,
     }))
 
@@ -432,6 +468,7 @@ def cmd_marker_url(args):
     if not pano:
         die(f"No Street View within {SEARCH_RADIUS_METERS // 1000} km of this spot")
     url = permalink(pano["pano"], pano["lat"], pano["lon"])
+    url = safe_maps_url(url)
     if not url:
         die("Street View returned an unsafe panorama id")
     print(json.dumps({
@@ -439,7 +476,7 @@ def cmd_marker_url(args):
         "lat": pano["lat"],
         "lon": pano["lon"],
         "url": url,
-        "mapUrl": map_url(pano["lat"], pano["lon"]),
+        "mapUrl": safe_maps_url(map_url(pano["lat"], pano["lon"])),
         "name": name or pano["name"],
         "pano": pano["pano"],
         "distanceMeters": pano["distanceMeters"],
@@ -452,6 +489,7 @@ def cmd_street(args):
     if not pano:
         die("No walkable Street View found")
     url = permalink(pano["pano"], pano["lat"], pano["lon"])
+    url = safe_maps_url(url)
     if not url:
         die("Street View returned an unsafe panorama id")
     print(json.dumps({
@@ -472,7 +510,7 @@ def cmd_map_url(args):
         die("map-url needs <lat> <lon> [zoom]")
     lat, lon = parse_latlon(args[0], args[1])
     zoom = int(args[2]) if len(args) > 2 else 14
-    print(map_url(lat, lon, zoom))
+    print(safe_maps_url(map_url(lat, lon, zoom)))
 
 
 def main(argv):

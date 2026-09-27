@@ -2,15 +2,83 @@
 """Chromium native-messaging host. Started for one New round click, then exits."""
 import json
 import os
+import re
+import select
 import struct
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 LOOKUP = Path(__file__).resolve().parent / "streetview-lookup"
 REGIONS = {"everywhere", "usa", "eu", "asia", "landmarks"}
 MAX_NATIVE_BYTES = 1024 * 1024
 MAX_LOOKUP_STDOUT = 64 * 1024
+MAPS_URL_RE = re.compile(
+    r"^https://(www\.google\.com/maps|maps\.google\.com)/[A-Za-z0-9._~:/?#@!+=&%,-]*$"
+)
+
+
+def safe_maps_url(url):
+    """Same maps-only allowlist as Panel.qml / open-streetview / hide.js."""
+    if not isinstance(url, str):
+        return ""
+    url = url.split("#", 1)[0]
+    if len(url) < 24 or len(url) > 4096:
+        return ""
+    if not MAPS_URL_RE.fullmatch(url):
+        return ""
+    return url
+
+
+def capped_stdout(argv, timeout, limit, env=None):
+    """Read subprocess stdout while it runs; never keep more than `limit` bytes."""
+    proc = subprocess.Popen(
+        argv,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.DEVNULL,
+        env=env,
+        bufsize=0,
+    )
+    chunks = []
+    total = 0
+    deadline = time.monotonic() + timeout
+    fd = proc.stdout.fileno()
+    try:
+        while True:
+            remaining = deadline - time.monotonic()
+            if remaining <= 0:
+                proc.kill()
+                proc.wait()
+                raise subprocess.TimeoutExpired(argv, timeout)
+            ready, _, _ = select.select([fd], [], [], remaining)
+            if not ready:
+                proc.kill()
+                proc.wait()
+                raise subprocess.TimeoutExpired(argv, timeout)
+            buf = os.read(fd, min(8192, limit + 1 - total))
+            if not buf:
+                break
+            total += len(buf)
+            if total > limit:
+                proc.kill()
+                proc.wait()
+                return None
+            chunks.append(buf)
+        proc.wait(timeout=max(0.1, deadline - time.monotonic()))
+        return b"".join(chunks)
+    finally:
+        if proc.stdout:
+            try:
+                proc.stdout.close()
+            except OSError:
+                pass
+        if proc.poll() is None:
+            proc.kill()
+            try:
+                proc.wait(timeout=1)
+            except subprocess.TimeoutExpired:
+                pass
 
 
 def read_message():
@@ -40,18 +108,17 @@ def region_id():
     env = os.environ.copy()
     env.setdefault("OMARCHY_PATH", "/usr/share/omarchy")
     try:
-        proc = subprocess.run(
+        raw = capped_stdout(
             ["omarchy-shell", "lessunderrated.geoguess-region", "region"],
-            capture_output=True,
-            text=True,
             timeout=5,
+            limit=256,
             env=env,
         )
     except (OSError, subprocess.TimeoutExpired):
         return "everywhere"
-    if len(proc.stdout or "") > 256:
+    if raw is None:
         return "everywhere"
-    region = proc.stdout.strip().strip('"')
+    region = raw.decode("utf-8", "replace").strip().strip('"')
     return region if region in REGIONS else "everywhere"
 
 
@@ -61,23 +128,23 @@ def main():
         write_message({"ok": False, "error": "unknown request"})
         return
     try:
-        proc = subprocess.run(
+        raw = capped_stdout(
             [str(LOOKUP), "street", region_id()],
-            capture_output=True,
-            text=True,
             timeout=30,
+            limit=MAX_LOOKUP_STDOUT,
         )
-        if len(proc.stdout or "") > MAX_LOOKUP_STDOUT:
+        if raw is None:
             write_message({"ok": False, "error": "lookup output too large"})
             return
-        doc = json.loads(proc.stdout or "{}")
-    except (OSError, subprocess.TimeoutExpired, json.JSONDecodeError) as exc:
+        doc = json.loads(raw.decode("utf-8") or "{}")
+    except (OSError, subprocess.TimeoutExpired, json.JSONDecodeError, UnicodeDecodeError) as exc:
         write_message({"ok": False, "error": str(exc)})
         return
-    if not doc.get("ok") or not doc.get("url"):
-        write_message({"ok": False, "error": doc.get("error") or "no panorama"})
+    url = safe_maps_url(doc.get("url") if isinstance(doc, dict) else "")
+    if not (isinstance(doc, dict) and doc.get("ok") and url):
+        write_message({"ok": False, "error": (doc.get("error") if isinstance(doc, dict) else None) or "no panorama"})
         return
-    write_message({"ok": True, "url": doc["url"]})
+    write_message({"ok": True, "url": url})
 
 
 if __name__ == "__main__":
