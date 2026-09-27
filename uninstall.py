@@ -137,7 +137,7 @@ def owned_host_text(host_bin):
 
 
 def we_own_host(path):
-    """Ownership is a content digest, not a marker a user can keep after editing."""
+    """Own only an exact host registration we generate, not a user-edited copy."""
     if not regular(path):
         return False
     text = read_text(path)
@@ -149,17 +149,15 @@ def we_own_host(path):
         return False
     if not isinstance(data, dict):
         return False
-    claimed = data.get("x-omarchy-sha256")
-    if isinstance(claimed, str) and claimed:
-        rest = {key: value for key, value in data.items() if key != "x-omarchy-sha256"}
-        return claimed == digest(canonical_host_body(rest))
-    path_value = data.get("path")
-    if not isinstance(path_value, str):
+    host_bin = data.get("path")
+    if not isinstance(host_bin, str) or not host_bin:
         return False
-    normalized = os.path.normpath(path_value)
+    if text == owned_host_text(host_bin):
+        return True
+    normalized = os.path.normpath(host_bin)
     if os.path.basename(normalized) != "guess-host" or PLUGIN_ID not in normalized.split(os.sep):
         return False
-    return data == host_payload(path_value)
+    return data == host_payload(host_bin)
 
 
 def write_host(path, host_bin):

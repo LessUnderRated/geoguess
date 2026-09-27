@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Content-aware native-messaging host install and remove."""
+import hashlib
 import json
 import os
 import shutil
@@ -85,6 +86,24 @@ class HostOwnershipTests(unittest.TestCase):
         self.assertEqual(result.returncode, 1)
         self.assertIn("unowned host file", result.stderr)
         self.assertEqual(self.read(path), MARKER_HOST)
+
+    def test_install_refuses_edited_payload_even_with_matching_digest(self):
+        path = self.host_files[0]
+        payload = {
+            "allowed_origins": ["chrome-extension://ghhlkacefalngacompmfpiekbmblamgg/"],
+            "description": "user changed this host",
+            "name": "com.lessunderrated.geoguess",
+            "path": HOST_BIN,
+            "type": "stdio",
+            "x-omarchy-owner": "lessunderrated.geoguess",
+        }
+        body = json.dumps(payload, separators=(",", ":"), sort_keys=True)
+        payload["x-omarchy-sha256"] = hashlib.sha256(body.encode("utf-8")).hexdigest()
+        edited = json.dumps(payload, indent=2, sort_keys=True) + "\n"
+        self.write(path, edited)
+        result = self.run_py("install-host", HOST_BIN)
+        self.assertEqual(result.returncode, 1)
+        self.assertEqual(self.read(path), edited)
 
     def test_remove_leaves_user_edited_marked_file(self):
         self.assertEqual(self.run_py("install-host", HOST_BIN).returncode, 0)
