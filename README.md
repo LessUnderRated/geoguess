@@ -2,7 +2,7 @@
 
 ![Geo Guess](preview.png)
 
-Geo Guess is a Omarchy plugin that puts a globe on your bar. Pick a spot to open nearby Street View, or play a round and guess where you are. Enjoy.
+GeoGuess is a google streetview explorer and geolocation game, that uses a chromium extension to locally modify google streetview using no other apis or keys.
 
 ---
 
