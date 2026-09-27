@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "Geo Guess",
+  "version": "1.2.1",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxsMy9FtwII4xz7XiQbVGsrlItc/8F9nt8Jj5ddvdYG60WjzOUApxXiddz3XaE22M7n8pqFURAiEk8RTK/BGj0Ii82FOVMJsDgicPT0jtiL6IBFYWp8xUEpMuoxZnSbZCgqosxT8rFxMrxzbmmKW60KLR1HJhxptfJ52DOV2WBf9FHpH9p3NXaT8rH4JXUpclsXUrDmDSwB7Ll1kO2UHqt4MvSPB4a7n6+WdA2GAIqMkKOMdpnwnb5JJZklEazTMFHEFFiiqy9x+bF6Uc8PwPZBn8PqQ7E0ITJUHCf6XO1erkT/KoNFo5elC3Mgk1IjPhMqLEBg2G05TyPqn8ftX/WQIDAQAB",
+  "permissions": ["nativeMessaging", "windows"],
+  "host_permissions": [
+    "https://www.google.com/maps/*",
+    "https://maps.googleapis.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "description": "Hides the place name, search box, and minimap so a round does not give away the answer.",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.google.com/maps/*",
+        "https://maps.google.com/*"
+      ],
+      "js": ["hide.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["countries.json", "towns.json", "states.json", "map/*"],
+      "matches": ["https://www.google.com/*", "https://maps.google.com/*"]
+    }
+  ]
+}

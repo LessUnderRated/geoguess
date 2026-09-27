@@ -1,0 +1,73 @@
+#!/usr/bin/env python3
+"""Chromium native-messaging host. Started for one New round click, then exits."""
+import json
+import os
+import struct
+import subprocess
+import sys
+from pathlib import Path
+
+LOOKUP = Path(__file__).resolve().parent / "streetview-lookup"
+REGIONS = {"everywhere", "usa", "eu", "asia", "landmarks"}
+
+
+def read_message():
+    raw = sys.stdin.buffer.read(4)
+    if len(raw) < 4:
+        return {}
+    size = struct.unpack("<I", raw)[0]
+    data = sys.stdin.buffer.read(size)
+    try:
+        return json.loads(data.decode())
+    except json.JSONDecodeError:
+        return {}
+
+
+def write_message(body):
+    data = json.dumps(body).encode()
+    sys.stdout.buffer.write(struct.pack("<I", len(data)))
+    sys.stdout.buffer.write(data)
+    sys.stdout.buffer.flush()
+
+
+def region_id():
+    env = os.environ.copy()
+    env.setdefault("OMARCHY_PATH", "/usr/share/omarchy")
+    try:
+        proc = subprocess.run(
+            ["omarchy-shell", "lessunderrated.geoguess-region", "region"],
+            capture_output=True,
+            text=True,
+            timeout=5,
+            env=env,
+        )
+    except (OSError, subprocess.TimeoutExpired):
+        return "everywhere"
+    region = proc.stdout.strip().strip('"')
+    return region if region in REGIONS else "everywhere"
+
+
+def main():
+    message = read_message()
+    if message.get("type") != "next":
+        write_message({"ok": False, "error": "unknown request"})
+        return
+    try:
+        proc = subprocess.run(
+            [str(LOOKUP), "street", region_id()],
+            capture_output=True,
+            text=True,
+            timeout=30,
+        )
+        doc = json.loads(proc.stdout or "{}")
+    except (OSError, subprocess.TimeoutExpired, json.JSONDecodeError) as exc:
+        write_message({"ok": False, "error": str(exc)})
+        return
+    if not doc.get("ok") or not doc.get("url"):
+        write_message({"ok": False, "error": doc.get("error") or "no panorama"})
+        return
+    write_message({"ok": True, "url": doc["url"]})
+
+
+if __name__ == "__main__":
+    main()

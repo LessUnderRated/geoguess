@@ -1,0 +1,21 @@
+/* Stable hooks on the current Maps Street View page. Class names are not stable. */
+#gb,
+button[aria-label="Search"],
+button[aria-label="Directions"],
+button[aria-label="Menu"],
+button[aria-label="Collapse side panel"],
+button[aria-label="Show location on map"],
+button[aria-label="Share"],
+a[aria-label="Google apps"],
+a[aria-label="Sign in"],
+[aria-label="Interactive map"],
+[aria-label="Explore this area"],
+h1,
+h2,
+form,
+label,
+[role="main"],
+[role="complementary"],
+nav {
+  display: none !important;
+}

@@ -1,0 +1,59 @@
+#!/bin/bash
+# Open a Street View URL, then Hyprland-fullscreen that window (Super+F).
+
+url=$1
+if [[ -z $url ]]; then
+  echo "open-streetview needs a url" >&2
+  exit 2
+fi
+
+before=$(hyprctl clients -j)
+
+omarchy-launch-webapp "$url" &
+
+python3 - "$before" << 'PY'
+import json, subprocess, sys, time
+
+before = {client["address"] for client in json.loads(sys.argv[1])}
+
+def clients():
+    raw = subprocess.check_output(["hyprctl", "clients", "-j"], text=True)
+    return json.loads(raw)
+
+def fullscreen(address):
+    target = "address:" + address
+    cmd = (
+        'hl.dsp.window.fullscreen({ window = "%s", mode = "fullscreen", action = "set" })'
+        % target
+    )
+    result = subprocess.run(["hyprctl", "dispatch", cmd], text=True, capture_output=True)
+    output = (result.stdout + result.stderr).lower()
+    if result.returncode == 0 and "no target" not in output and "error" not in output:
+        return True
+    subprocess.run(
+        ["hyprctl", "dispatch", 'hl.dsp.focus({ window = "%s" })' % target],
+        check=False,
+    )
+    active = json.loads(subprocess.check_output(["hyprctl", "activewindow", "-j"], text=True))
+    if active.get("address") != address:
+        return False
+    subprocess.run(
+        ["hyprctl", "dispatch", 'hl.dsp.window.fullscreen({ mode = "fullscreen" })'],
+        check=False,
+    )
+    return True
+
+for _ in range(40):
+    time.sleep(0.15)
+    fresh = [
+        client for client in clients()
+        if client.get("address") not in before
+        and "chrom" in str(client.get("class", "")).lower()
+    ]
+    if not fresh:
+        continue
+    if fullscreen(fresh[-1]["address"]):
+        sys.exit(0)
+
+sys.exit(1)
+PY

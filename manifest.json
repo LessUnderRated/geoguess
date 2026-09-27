@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "lessunderrated.geoguess",
+  "name": "Geo Guess",
+  "version": "0.2.0",
+  "author": "LessUnderRated",
+  "license": "MIT",
+  "description": "Globe for a panorama guessing game. Pick a spot or play a round and guess where you are.",
+  "keywords": ["guess", "maps", "globe", "travel", "panorama"],
+  "kinds": ["bar-widget"],
+  "entryPoints": {
+    "barWidget": "BarWidget.qml"
+  },
+  "barWidget": {
+    "displayName": "Geo Guess",
+    "description": "Open the Geo Guess globe",
+    "category": "Info",
+    "allowMultiple": false,
+    "defaultSection": "right"
+  }
+}

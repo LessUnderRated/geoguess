@@ -1,0 +1,667 @@
+[
+  {
+    "uuid": "sv-colosseum",
+    "name": "Colosseum, Rome",
+    "latitude": 41.8902,
+    "longitude": 12.4922,
+    "countryCode": "IT",
+    "url": "https://www.google.com/maps/place/Colosseum/@41.8902102,12.4922309,3a,75y,119.89h,90.11t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgIDRh6-ofA!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAFP8RcPxmDLuwotWS9qRiavUYsQhMJtIQAWRjKpZc-sRNVQbdwxlbcotqrmJKdbK6FWd68o5fLl5faQdgMlChqpPX7ZMrRiPyXCFVZCKBcV23xHXK-lUIW7O8XGUsl7Odpps0cp5q3nj%3Dw900-h600-k-no-pi-0.11253999999999564-ya119.88746-ro0-fo100!7i5656!8i2828!4m9!3m8!1s0x132f61b6532013ad:0x28f1c82e908503c4!8m2!3d41.8902102!4d12.4922309!10e5!14m1!1BCgIgARICCAI!16zL20vMGQ1cXg"
+  },
+  {
+    "uuid": "sv-machu",
+    "name": "Machu Picchu, Peru",
+    "latitude": -13.1631,
+    "longitude": -72.545,
+    "countryCode": "PE",
+    "url": "https://www.google.com/maps/place/Historic%20Sanctuary%20of%20Machu%20Picchu/@-13.162942091168187,-72.54483339502933,3a,75.0y,239.88747h,90.11254t/data=!3m7!1e1!3m5!1sTGJCy3uY7E1bnMYA2ykgZQ!2e0!6shttps%3A%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D0%26panoid%3DTGJCy3uY7E1bnMYA2ykgZQ%26yaw%3D239.88747!7i13312!8i6656!4m9!3m8!1s0x916d9a5f89555555:0x3a10370ea4a01a27!8m2!3d-13.1631988!4d-72.5452621!10e5!14m1!1BCgIgARICCAI"
+  },
+  {
+    "uuid": "sv-pyramids",
+    "name": "Pyramids of Giza",
+    "latitude": 29.9792,
+    "longitude": 31.1342,
+    "countryCode": "EG",
+    "url": "https://www.google.com/maps/place/Giza%20Necropolis/@29.977989723571532,31.135906931984216,3a,75.0y,299.88745h,90.11254t/data=!3m7!1e1!3m5!1s_0pfLv3fU9DhApzUkEE07w!2e0!6shttps%3A%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D0%26panoid%3D_0pfLv3fU9DhApzUkEE07w%26yaw%3D299.88745!7i13312!8i6656!4m9!3m8!1s0x14584f7de239bbcd:0xca7474355a6e368b!8m2!3d29.977296199999998!4d31.132495499999997!10e5!14m1!1BCgIgARICCAI"
+  },
+  {
+    "uuid": "sv-taj",
+    "name": "Taj Mahal, Agra",
+    "latitude": 27.1751,
+    "longitude": 78.0421,
+    "countryCode": "IN",
+    "url": "https://www.google.com/maps/place/Taj+Mahal/@27.1751448,78.0421422,3a,75y,59.89h,100.11t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgIDp9K2ZBQ!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAFP8RcPUGZGS4ZBIRXRw3uVbn83e8fOLCb3F5wMGZ4KhbKE720Qg_68Am5czSzVqNKcoyxbruUHrvOKFSFAdISCJGsTGSEocaHkCWqXM8niOaxx2z4-l5VriJNdIEtElKA72ZUg6vvY%3Dw900-h600-k-no-pi-10.112570000000005-ya59.88743-ro0-fo100!7i6144!8i3072!4m9!3m8!1s0x39747121d702ff6d:0xdd2ae4803f767dde!8m2!3d27.1751448!4d78.0421422!10e5!14m1!1BCgIgARICCAI!16zL20vMGw4Y2I"
+  },
+  {
+    "uuid": "sv-liberty",
+    "name": "Statue of Liberty, NYC",
+    "latitude": 40.6892,
+    "longitude": -74.0445,
+    "countryCode": "US",
+    "url": "https://www.google.com/maps/place/Statue+of+Liberty/@40.6892494,-74.0445004,3a,75y,359.89h,90.11t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgICR_evTigE!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAFP8RcNbOhJyfEpBMotjeH_B7aa1JT6JAevriP0_j6rZiqHvQgcDgedkUgH0lb2nRCtK_7BYRdPvbNCit8HZgV8u6U1cSv7D9IhGmDxhgzCEnEGyRUXEyGM3iDUR-h0QtZpi0fVOozL_cA%3Dw900-h600-k-no-pi-0.11257000000000517-ya359.88742-ro0-fo100!7i13865!8i6932!4m9!3m8!1s0x89c25090129c363d:0x40c6a5770d25022b!8m2!3d40.6892494!4d-74.0445004!10e5!14m1!1BCgIgARICCAI!16zL20vMDcycDg"
+  },
+  {
+    "uuid": "sv-sydney",
+    "name": "Sydney Opera House",
+    "latitude": -33.8568,
+    "longitude": 151.2153,
+    "countryCode": "AU",
+    "url": "https://www.google.com/maps/place/Sydney+Opera+House/@-33.8567844,151.2152967,3a,75y,80h,100t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgID-lt_ogAE!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAFP8RcPZ-tAk9Gu-xihLVcRCkteaobKyewhFW23aQmHF9OcjG46Vit3DlbZyCPlubD6hjJ8ITF_6iDW8D1iYcqzDFHytKJ1b9L4Id_X2PYyJU-qsDkSg4Dbtn5enN1JwjStxccXrrnHn%3Dw900-h600-k-no-pi-10-ya80-ro0-fo100!7i5760!8i2880!4m9!3m8!1s0x6b12ae665e892fdd:0x3133f8d75a1ac251!8m2!3d-33.8567844!4d151.2152967!10e5!14m1!1BCgIgARICCAI!16zL20vMDZfbm0"
+  },
+  {
+    "uuid": "sv-fuji",
+    "name": "Mt Fuji / Chureito Pagoda",
+    "latitude": 35.501,
+    "longitude": 138.801,
+    "countryCode": "JP",
+    "url": "https://www.google.com/maps/place/Chureito+Pagoda/@35.5012983,138.8009296,3a,75y,6.53h,100.13t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgIDch5aLrAE!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAFP8RcM1ASO36ozj3KBl4YYHVgqR4QcT4Jy0MIVfZNtOCuA3UgaR9hHTx5VbantMp7sMpGfh-1scQFPXl1lrtCmmeKCavMMn0FvWPtlxvaBH66XFpttUWgcj9vlTg97w8ILv6Sz7WGtpzQ%3Dw900-h600-k-no-pi-10.131330000000005-ya6.5290804-ro0-fo100!7i6080!8i3040!4m9!3m8!1s0x6019674cfd52a073:0xda57e34920aee799!8m2!3d35.5012626!4d138.8013852!10e5!14m1!1BCgIgARICCAI!16s%2Fg%2F11c1bkcr3m"
+  },
+  {
+    "uuid": "sv-petra",
+    "name": "Petra, Treasury",
+    "latitude": 30.3222,
+    "longitude": 35.4514,
+    "countryCode": "JO",
+    "url": "https://www.google.com/maps/place/The+Treasury/@30.3220105,35.4517323,3a,75y,339.89h,100.11t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgICRprXXhgE!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAFP8RcOBAIALvuPcVI0mXAvd0pb1Ibsa3rhwut9FStsGn73eRS5VunjGG943cXl8Hugx_l6ZoGTKH2qj_6Lg0ykplDfYGdSltb8AhYb6v0b5OIDyCpTthsBp5vbnhVscoUwSeXpmj45v%3Dw900-h600-k-no-pi-10.112570000000005-ya120.88742000000002-ro0-fo100!7i8704!8i4352!4m9!3m8!1s0x15016eeb79d3cf39:0xa40550ba81476059!8m2!3d30.3221392!4d35.4517457!10e5!14m1!1BCgIgARICCAI!16zL20vMGZuanlw"
+  },
+  {
+    "uuid": "sv-louvre",
+    "name": "Louvre, Paris",
+    "latitude": 48.8606,
+    "longitude": 2.3376,
+    "countryCode": "FR",
+    "url": "https://www.google.com/maps/place/Louvre+Museum/@48.8609885,2.3375405,3a,75y,21.84h,100.69t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgIDe5bb5cg!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAFP8RcMb4JEVsLhrk0pqeWBTGiVCxNTdi7ciic_S3wIzistITz36TnbxMnQ4BDLUjuUmlkDQtuBIjSTLjoLo-2u5DD3m_nWt31Sal6Oj9GOl8nlt3gNyxiZ8NG0sgMYd-7Okr-7oXmQ%3Dw900-h600-k-no-pi-10.694180000000003-ya21.838648-ro0-fo100!7i5952!8i2976!4m9!3m8!1s0x47e671d877937b0f:0xb975fcfa192f84d4!8m2!3d48.8606111!4d2.337644!10e5!14m1!1BCgIgARICCAI!16zL20vMDRnZHI"
+  },
+  {
+    "uuid": "sv-bigben",
+    "name": "Big Ben, London",
+    "latitude": 51.5007,
+    "longitude": -0.1246,
+    "countryCode": "GB",
+    "url": "https://www.google.com/maps/place/Big+Ben/@51.500865,-0.1239147,3a,75y,303.26h,112.93t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgIDBr8C-hwE!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAFP8RcN9iB9M5Y-fO_KJSjt7ZrGewX5lYhUb4-ggfz7XRYI_l5iZuDrr_NVAVbY0_bq8ZCQkfyo0v0cwNKP5AhC6iz7F8LXgpQKSYfmnbQSl7dj-qEz52w1EEvon5qGLgMm0GKwX833NBQ%3Dw900-h600-k-no-pi-22.926829999999995-ya303.26453-ro0-fo100!7i5760!8i2880!4m9!3m8!1s0x487604c38c8cd1d9:0xb78f2474b9a45aa9!8m2!3d51.5007292!4d-0.1246254!10e5!14m1!1BCgIgARICCAI!16zL20vMDI2eWRj"
+  },
+  {
+    "uuid": "sv-sagrada",
+    "name": "Sagrada Familia, Barcelona",
+    "latitude": 41.4036,
+    "longitude": 2.1744,
+    "countryCode": "ES",
+    "url": "https://www.google.com/maps/place/Basilica+of+the+Sagrada+Familia/@41.4036299,2.1743558,3a,75y,239.89h,90.11t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgICJp-Co5gE!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAFP8RcM6_F1cOfbVTnZitiWht-UOw9oICbvbPKmRk9qTgzHUltzkXNTL0TmFWYTor78jBOJy2uCY0rKPMi83rnrnIEyDuTLwZECa7N_OM2OVTScqFfH18VT5ZY-npD20v5Jf1A521fs3mw%3Dw900-h600-k-no-pi-0.11253999999999564-ya239.88747-ro0-fo100!7i5760!8i2880!4m9!3m8!1s0x12a4a2dcd83dfb93:0x9bd8aac21bc3c950!8m2!3d41.4036299!4d2.1743558!10e5!14m1!1BCgIgARICCAI!16zL20vMGc2bjM"
+  },
+  {
+    "uuid": "sv-opera-vienna",
+    "name": "Vienna State Opera",
+    "latitude": 48.203,
+    "longitude": 16.3692,
+    "countryCode": "AT",
+    "url": "https://www.google.com/maps/place/Vienna+State+Opera/@48.2030099,16.3690761,3a,75y,69h,104.52t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgIC43aOK7AE!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAFP8RcOqsVl_WXH9KiSG6CnheuVb7IcoJiDQWQjYm1PkhevlVCpuHkHb0eJ4ZzvKHhbMJ2Io-WeoL37dNObZEspoLahil5Rxwoqfw5EAFqM2lmaM2g-8Wt6qNpQI82yPQk1L-VnIxmgl_A%3Dw900-h600-k-no-pi-14.517685-ya69.00321-ro0-fo100!7i8000!8i4000!4m9!3m8!1s0x476d079c861dbfd5:0xfd59268d25377d56!8m2!3d48.2034306!4d16.3692034!10e5!14m1!1BCgIgARICCAI!16zL20vMDIxYzh2"
+  },
+  {
+    "uuid": "sv-neuschwanstein",
+    "name": "Neuschwanstein Castle",
+    "latitude": 47.5576,
+    "longitude": 10.7498,
+    "countryCode": "DE",
+    "url": "https://www.google.com/maps/place/Neuschwanstein+Castle/@47.5573169,10.749126,3a,75y,307.54h,90t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgICMzuLHZg!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAFP8RcOM1NRMXgNvZRCAj7AvOgVonjIGgsgqWHsikjnzAndvOB4H6xvhmPpTSwX_oGTAXsSx8ksA6gJsmT7cJvB2WODtXz1O58OzA4ugEA7SjMyHmiXqpOvoXPQkqa6ges_kKd-Qpua2%3Dw900-h600-k-no-pi0-ya307.5402-ro0-fo100!7i8192!8i4096!4m9!3m8!1s0x479cf7cac44ea35d:0xc8a6866bd39dbba3!8m2!3d47.557574!4d10.7498004!10e5!14m1!1BCgIgARICCAI!16zL20vMDFqejF6"
+  },
+  {
+    "uuid": "sv-prague",
+    "name": "Charles Bridge, Prague",
+    "latitude": 50.0865,
+    "longitude": 14.4114,
+    "countryCode": "CZ",
+    "url": "https://www.google.com/maps/place/Charles+Bridge/@50.0864771,14.4114366,3a,75y,359.89h,90.11t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgIDRn625kQE!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAFP8RcMMArNx1MtNpXrpP5tuUGqqwTm3_87I4SMbN3hzmYIbinlE81B1SAg8g41B2v8c-vJn4RX1IYmP-rCOX8W4P5ER9-GepSRAYqxFY4AeNdpfj9i3IoNK3GAQf5kuK1muAtp1OKg4bg%3Dw900-h600-k-no-pi-0.11253999999999564-ya359.88745-ro0-fo100!7i6080!8i3040!4m9!3m8!1s0x470b94e5e58eb59f:0x75209738d1d3b126!8m2!3d50.0864771!4d14.4114366!10e5!14m1!1BCgIgARICCAI!16zL20vMDJramg4"
+  },
+  {
+    "uuid": "sv-istanbul-bazaar",
+    "name": "Grand Bazaar, Istanbul",
+    "latitude": 41.0107,
+    "longitude": 28.968,
+    "countryCode": "TR",
+    "url": "https://www.google.com/maps/place/Grand+Bazaar/@41.0106848,28.9680681,3a,75y,340h,90t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgID4nIP8Jg!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgps-cs-s%2FAHRPTWmUhDR5TWWJW27fKStn8s3jFIJ7Li_nxOlj8O0DQ0aaKCfh3BxOZXvoHSsr2JcLsCqhCGfjdwWfGBQ13i5AfRq3hcL_2vt0xoR3T_5ug2osIaUaF1svM1VkfMdAN3-49MPzATM%3Dw900-h600-k-no-pi0-ya340-ro0-fo100!7i12000!8i6000!4m9!3m8!1s0x14cab99162d70527:0x64c8680b5ac198ab!8m2!3d41.0106848!4d28.9680681!10e5!14m1!1BCgIgARICCAI!16zL20vMDF5bV84"
+  },
+  {
+    "uuid": "sv-times",
+    "name": "Times Square, NYC",
+    "latitude": 40.758,
+    "longitude": -73.9855,
+    "countryCode": "US",
+    "url": "https://www.google.com/maps/place/Times+Square/@40.7573527,-73.9859299,3a,75y,62.26h,90t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgIClx4uwWw!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAFP8RcNQ01_Fv5cokMdjpiosXdv8_uQHxMjMcjHkwJKnlzFGHoW8xR_9FJdzWD4o4cNd6T4pwJCWamIo_0wXwWCRDiHyqq-OxeZDdcC_ty3kRgGVAnqTKvU3IxD7jZURuLl_IAhcxuc%3Dw900-h600-k-no-pi0-ya179.88745910839842-ro0-fo100!7i8192!8i4096!4m9!3m8!1s0x89c25855c6480299:0x55194ec5a1ae072e!8m2!3d40.7579747!4d-73.9855426!10e5!14m1!1BCgIgARICCAI!16zL20vMDdxZHI"
+  },
+  {
+    "uuid": "sv-christ",
+    "name": "Christ the Redeemer, Rio",
+    "latitude": -22.9519,
+    "longitude": -43.2105,
+    "countryCode": "BR",
+    "url": "https://www.google.com/maps/place/Christ+the+Redeemer/@-22.9519169,-43.2102693,481a,75y,180h,90t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgIDs7tvAhgE!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAFP8RcOf8FdeiUNiyk28IyeEDk8xWLfIqi3OIVvufv-ZkpAkjU9Mxgql2-PTF_s8J_CMS2ISOan9YZLp9dmzvcVna12XZ8bEY6wKbL4YFeK1PbFcAnpr2ofg-1CCMQzF-CXFaEYeZG0gAg%3Dw900-h600-k-no-pi0-ya112.2521743774414-ro0-fo100!7i5376!8i2688!4m9!3m8!1s0x997fd5984aa13f:0x9dc984d7019502de!8m2!3d-22.951916!4d-43.2104872!10e5!14m1!1BCgIgARICCAI!16zL20vMDNneXR3"
+  },
+  {
+    "uuid": "sv-moai",
+    "name": "Moai, Easter Island",
+    "latitude": -27.1127,
+    "longitude": -109.3497,
+    "countryCode": "CL",
+    "url": "https://www.google.com/maps/place/Moai/@-27.126014,-109.2770343,3a,75y,60h,110t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgIClxqbxCg!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAFP8RcNj13m7pzs9lm2WUa6jQx34WuioMyIZZvqSrdGWAg6S-1FxHi3HA2KIMYzJk7HPnTCWoz2SQH8ovnhrW3yza9yzq7LDPpxpkAs39OXugVGKIjiHX1h1lEtO3Dp2OtHSz4_nViyi%3Dw900-h600-k-no-pi-20-ya356-ro0-fo100!7i8704!8i4352!4m9!3m8!1s0x9947f1b353dbf5b3:0x7d0c6060d9c62ef6!8m2!3d-27.126014!4d-109.2770343!10e5!14m1!1BCgIgARICCAI!16s%2Fg%2F11bvt4cy69"
+  },
+  {
+    "uuid": "sv-angkor",
+    "name": "Angkor Wat",
+    "latitude": 13.4125,
+    "longitude": 103.867,
+    "countryCode": "KH",
+    "url": "https://www.google.com/maps/place/Angkor+Wat/@13.4124693,103.8669857,3a,75y,6.3h,102.38t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgID8pcqtjwE!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAFP8RcPLgUjYDcnW2XqulNF0FzaKz6bRSz29efpQs40m388RIcutT8kg_D0Sl-GcD5W0ly8JJYNsHLjHUFiPCGi1a3TjFCmRJOzMVFM3fnhwazyFCOKacLH9r-lf0zyUU8zT3ixKvI1PDA%3Dw900-h600-k-no-pi-12.379424999999998-ya6.302251-ro0-fo100!7i5760!8i2880!4m9!3m8!1s0x3110168aea9a272d:0x3eaba81157b0418d!8m2!3d13.4124693!4d103.8669857!10e5!14m1!1BCgIgARICCAI!16zL20vMDE5eGZs"
+  },
+  {
+    "uuid": "sv-borobudur",
+    "name": "Borobudur Temple",
+    "latitude": -7.6079,
+    "longitude": 110.2038,
+    "countryCode": "ID",
+    "url": "https://www.google.com/maps/place/Borobudur%20Temple/@-7.607769241664693,110.20350907541436,3a,75.0y,240.0h,90.0t/data=!3m7!1e1!3m5!1s3tgVDl-rtuznuUNCDyfFdg!2e0!6shttps%3A%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D0%26panoid%3D3tgVDl-rtuznuUNCDyfFdg%26yaw%3D240.0!7i13312!8i6656!4m9!3m8!1s0x2e7a8cf009a7d697:0xdd34334744dc3cb!8m2!3d-7.607873799999999!4d110.2037513!10e5!14m1!1BCgIgARICCAI"
+  },
+  {
+    "uuid": "sv-kyoto",
+    "name": "Fushimi Inari, Kyoto",
+    "latitude": 34.9671,
+    "longitude": 135.7727,
+    "countryCode": "JP",
+    "url": "https://www.google.com/maps/place/Fushimi+Inari+Taisha/@34.9671187,135.7724249,3a,75y,57.3h,108.12t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgICshfi8LA!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAFP8RcPyj-SPwszLArAJX0cKz9KBcmxE8g1rJcHAIXurPkcIIToFjbwX47h_CmbWYBeIte3cIp4W0XyyQTimMp9L1artyWSk67MkacChkcVVU_vv7F7zF59QkiFfO98ZP5xVUIh-Rl4%3Dw900-h600-k-no-pi-18.118970000000004-ya57.299034-ro0-fo100!7i6080!8i3040!4m9!3m8!1s0x60010f153d2e6d21:0x7b1aca1c753ae2e9!8m2!3d34.9676945!4d135.7791876!10e5!14m1!1BCgIgARICCAI!16zL20vMDVsZHJt"
+  },
+  {
+    "uuid": "sv-sensoji",
+    "name": "Senso-ji, Tokyo",
+    "latitude": 35.7148,
+    "longitude": 139.7967,
+    "countryCode": "JP",
+    "url": "https://www.google.com/maps/place/Sens%C5%8D-ji/@35.7137243,139.796641,3a,75y,359.32h,107.33t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgICO1pCnQQ!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAFP8RcPzeF2s-KyGZhrDnt5X_PLAqSvj27K8piheLrt9_JpJNLO3UMsw246mYsaWQLKmg-39ZCHNns9qgPL-ur3FokXQ9nL7520rKViSlCYf962fyLoTIPRr021jr61QyzojJVtdYeYj%3Dw900-h600-k-no-pi-17.331190000000007-ya359.32477-ro0-fo100!7i13000!8i6500!4m9!3m8!1s0x60188ec1a4463df1:0x6c0d289a8292810d!8m2!3d35.7147651!4d139.7966553!10e5!14m1!1BCgIgARICCAI!16zL20vMDNrOTg3"
+  },
+  {
+    "uuid": "sv-marina",
+    "name": "Marina Bay Sands, Singapore",
+    "latitude": 1.2834,
+    "longitude": 103.8607,
+    "countryCode": "SG",
+    "url": "https://www.google.com/maps/place/Marina+Bay+Sands+Singapore/@1.2837575,103.8591065,3a,75y,279.89h,110.11t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgID9g_-hDQ!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAFP8RcOrr6c2kD17Ie7tjvYsOANj9pHH3CbLqXLm0e1snGGjjl-NSK-JNrTQUr74mg9psmpMc_aVrlYQ6ZPfsCtRGvN3YFgzu0F7V0hVhar6v6jsatTXjI7tK0UAZkQQw0hXVTckOfA%3Dw900-h600-k-no-pi-20.112570000000005-ya279.88742-ro0-fo100!7i5656!8i2828!4m12!3m11!1s0x31da19ee4cc09203:0x26c9afefa555dd7!5m2!4m1!1i2!8m2!3d1.2837575!4d103.8591065!10e5!14m1!1BCgIgARICCAI!16zL20vMGRkOTAz"
+  },
+  {
+    "uuid": "sv-burj",
+    "name": "Burj Khalifa, Dubai",
+    "latitude": 25.1972,
+    "longitude": 55.2744,
+    "countryCode": "AE",
+    "url": "https://www.google.com/maps/place/Burj+Khalifa/@25.1948318,55.2757034,3a,75y,340h,90t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgIDcloqOUA!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAFP8RcPPG0h5B3jRDJ0AMXCuDwnbaxFVYWoVy0OniXrzyBrKqIhqHLoXLQSudJ2u3U_FGkFqc5syMWjn1JNEljS7zwuroTPWVeYLTy2m-7fZCuDmCxGo9HjSEoAXuvqXhQzYRDFgkV7O%3Dw900-h600-k-no-pi0-ya340-ro0-fo100!7i8000!8i4000!4m9!3m8!1s0x3e5f43348a67e24b:0xff45e502e1ceb7e2!8m2!3d25.197197!4d55.2743764!10e5!14m1!1BCgIgARICCAI!16zL20vMDNjbjB2"
+  },
+  {
+    "uuid": "sv-blue-mosque",
+    "name": "Blue Mosque, Istanbul",
+    "latitude": 41.0054,
+    "longitude": 28.9768,
+    "countryCode": "TR",
+    "url": "https://www.google.com/maps/place/The%20Blue%20Mosque/@41.007826743132405,28.97845002590546,3a,75.0y,200.0h,100.0t/data=!3m7!1e1!3m5!1sgfwdFrMKkgp1Wd1HJmt8bw!2e0!6shttps%3A%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D0%26panoid%3DgfwdFrMKkgp1Wd1HJmt8bw%26yaw%3D200.0!7i13312!8i6656!4m9!3m8!1s0x14cab9bd6570f4e1:0xe52df7368a157ca4!8m2!3d41.0054096!4d28.9768138!10e5!14m1!1BCgIgARICCAI"
+  },
+  {
+    "uuid": "sv-stonehenge",
+    "name": "Stonehenge",
+    "latitude": 51.1789,
+    "longitude": -1.8262,
+    "countryCode": "GB",
+    "url": "https://www.google.com/maps/place/Stonehenge/@51.1789379,-1.8260863,3a,75y,119.89h,90.11t/data=!3m7!1e1!3m5!1s2toQT4rUKwZdv46KZSdYUQ!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-0.11253999999999564%26panoid%3D2toQT4rUKwZdv46KZSdYUQ%26yaw%3D119.88746!7i13312!8i6656!4m9!3m8!1s0x4873e63b850af611:0x979170e2bcd3d2dd!8m2!3d51.178882!4d-1.826215!10e5!14m1!1BCgIgARICCAI!16zL20vMDZ3Zmc"
+  },
+  {
+    "uuid": "sv-versailles",
+    "name": "Palace of Versailles",
+    "latitude": 48.8049,
+    "longitude": 2.1204,
+    "countryCode": "FR",
+    "url": "https://www.google.com/maps/place/Palace+of+Versailles/@48.8048649,2.1203554,3a,75y,179.89h,90.11t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgIDpjMpg!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAFP8RcNDW7teL096_l8iANC9GL_j911-4LwbtKIGNDV8rCgNA6739NSGXZrnWnmmGQzSTEoCH0m7BZ38pitiLokhkM7-VO2-e1oVEjQ3v-cnMyHsr89MRJSPKKbhCnPyixBC7SNXXA%3Dw900-h600-k-no-pi-0.11253999999999564-ya179.88747-ro0-fo100!7i5952!8i2976!4m9!3m8!1s0x47e67d94d7b14c75:0x538fcc15f59ce8f!8m2!3d48.8048649!4d2.1203554!10e5!14m1!1BCgIgARICCAI!16zL20vMGRfNjE"
+  },
+  {
+    "uuid": "sv-brandenburg",
+    "name": "Brandenburg Gate, Berlin",
+    "latitude": 52.5163,
+    "longitude": 13.3777,
+    "countryCode": "DE",
+    "url": "https://www.google.com/maps/place/Brandenburg+Gate/@52.5163222,13.3781414,3a,75y,353.47h,120t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgICW96zgQQ!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgps-cs-s%2FAHRPTWmZNYQ5gtTmW15EzYuzAp-XaAYQbkXHz7a424fli07XgcMewe1gffIebEnSjQrab12_dl6iWbWgzqVh_SSkH_mIrm30q9KoRqSTYDq8BpLIGVCMwMCBhnrX6HYOHT_Ot-ZSpEA%3Dw900-h600-k-no-pi-30-ya354.47092-ro0-fo100!7i4608!8i2304!4m9!3m8!1s0x47a851c655f20989:0x26bbfb4e84674c63!8m2!3d52.5162746!4d13.3777041!10e5!14m1!1BCgIgARICCAI!16zL20vMDE0a2Y4"
+  },
+  {
+    "name": "Darul Aman Palace, Kabul",
+    "latitude": 34.46476,
+    "longitude": 69.11952,
+    "countryCode": "AF",
+    "pano": "CIHM0ogKEICAgICCmZTFxAE",
+    "uuid": "sv-darul-aman-palace--kabul",
+    "url": "https://www.google.com/maps/place/DarulAman+Palace/@34.4647633,69.1195195,3a,75y,357.86h,105.87t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgICCmZTFxAE!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAFP8RcPTeFXQ4GrZxTtUbNGEOiw1hM_NEQyCnafkje69PtS0ycmNhK6-3wGCAPj_AHmVA1mas2ulk1IiosjlXlKHZ-0_GiJxwnpftGjs2eTb4WDHE5Gx6m7GmRePzTjhYSuuxDbsQuD34A%3Dw900-h600-k-no-pi-15.868163999999993-ya357.86172-ro0-fo100!7i4608!8i2304!4m9!3m8!1s0x38d1692428be5ecf:0xd47cfa156e405994!8m2!3d34.4649384!4d69.1194839!10e5!14m1!1BCgIgARICCAI!16zL20vMDV5ODcx"
+  },
+  {
+    "name": "Notre-Dame d'Afrique, Algiers",
+    "latitude": 36.80116,
+    "longitude": 3.04264,
+    "countryCode": "DZ",
+    "pano": "CIHM0ogKEICAgICEtcz_Sg",
+    "uuid": "sv-notre-dame-d-afrique--algiers",
+    "url": "https://www.google.com/maps/place/Church+of+Notre+Dame+d'Afrique/@36.8009262,3.0426368,3a,75y,179.89h,90.11t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgIDhyba36AE!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAFP8RcNlD216ux2NhU-pCpNKjxCAy-5R92VWL-B1rBvh13hHk6TZv7EncCOxs4ln4g4bUVEfOW2O1X_0IMK685I6OcIoJRXalED4kpXUhDu7U7fWr7lgoTC7Om7oAgLCzrq5_Mt-8abi%3Dw900-h600-k-no-pi-0.11253999999999564-ya179.88747-ro0-fo100!7i4096!8i2048!4m9!3m8!1s0x128fb3bbe03b4fbb:0x3f03dd1cafd90e67!8m2!3d36.8010025!4d3.0425614!10e5!14m1!1BCgIgARICCAI!16s%2Fm%2F02py3hq"
+  },
+  {
+    "name": "Fortaleza de Sao Miguel, Luanda",
+    "latitude": -8.8083,
+    "longitude": 13.22304,
+    "countryCode": "AO",
+    "pano": "CIHM0ogKEICAgID60fLGMg",
+    "uuid": "sv-fortaleza-de-sao-miguel--luanda",
+    "url": "https://www.google.com/maps/place/Fortress+of+S%C3%A3o+Miguel./@-8.809275,13.22333,3a,75y,180h,110t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgID60cr7Yg!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAFP8RcMHmF1Tll7zxUO3YEOPBpYEqYG2xF3nFehtmWuFDZaTZnNF45WZRy5JZ2uw18JO6CRpyj_71HZiiH9v2XOHzxzneAMk9cmDbdiWvqf2NgMep2PdF5MQ8ERT6TW9WBAX5c5VsER_%3Dw900-h600-k-no-pi-20-ya180-ro0-fo100!7i5376!8i2688!4m9!3m8!1s0x1a51f258533cdcc1:0x2aa64df5c193009e!8m2!3d-8.8083294!4d13.2234282!10e5!14m1!1BCgIgARICCAI!16s%2Fm%2F02vnxrq"
+  },
+  {
+    "name": "Queen's Staircase, Nassau",
+    "latitude": 25.07302,
+    "longitude": -77.33997,
+    "countryCode": "BS",
+    "pano": "CIABIhAGbzzgMhaKx2fJHvIADVeR",
+    "uuid": "sv-queen-s-staircase--nassau",
+    "url": "https://www.google.com/maps/place/Queen's+Staircase/@25.0730997,-77.3376366,3a,75y,80h,90t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgIDG4PqOnQE!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAFP8RcOFp8eazObwKpHWtd0HNJdAYlRedtwGjGKcqEbQ0Fgk3dTBkq37wGk1s9dQdsC_vitG7LKtgB25DMGQhpP1M5WbtJE9Gd0wZ1j1XtAL_KfBrKAiYA7kIjrE21KPRAEZIbll47DA%3Dw900-h600-k-no-pi0-ya121.4359130859375-ro0-fo100!7i6080!8i3040!4m9!3m8!1s0x892f7d06abee5961:0x6338d56dc6c38c3d!8m2!3d25.0729572!4d-77.3376087!10e5!14m1!1BCgIgARICCAI!16s%2Fg%2F11g8vv3t3h"
+  },
+  {
+    "name": "Republic Square, Yerevan",
+    "latitude": 40.17704,
+    "longitude": 44.51211,
+    "countryCode": "AM",
+    "pano": "CIHM0ogKEICAgIDqq-efkgE",
+    "uuid": "sv-republic-square--yerevan",
+    "url": "https://www.google.com/maps/place/Republic+Square/@40.1776945,44.5126511,3a,75y,90t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgICEmKvKRQ!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAFP8RcNO05ABo9LqnuCBvFy_7G2aY6vbZgHqvdCH-ZC0ij0_a0h8QZ2e6vGxxeSo_FrDVZY1S9QeTeky_BRJWA3HxmF8TTiexHz47uy1hYBf8hWGJr-QR9094VyUII8OqCQKcTI7_ba8%3Dw900-h600-k-no-pi0-ya261.1254425048828-ro0-fo100!7i7776!8i3888!4m9!3m8!1s0x406abcfa28499691:0x2bde14d127166c74!8m2!3d40.1776945!4d44.5126511!10e5!14m1!1BCgIgARICCAI!16s%2Fm%2F02r2t03"
+  },
+  {
+    "name": "Xunantunich, Belize",
+    "latitude": 17.08909,
+    "longitude": -89.14136,
+    "countryCode": "BZ",
+    "pano": "CIHM0ogKEICAgIC69dToxwE",
+    "uuid": "sv-xunantunich--belize",
+    "url": "https://www.google.com/maps/place/Xunantunich+Mayan+Ruins/@17.0895327,-89.1416934,3a,75y,140h,90t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgID46-zFJg!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAFP8RcN4KmkCE_Zqscl_7ZhOdXHpWB95Bvt8s2VFcsiWjE7l0UxsSy2JwmXt05NF-sHcmXxmAxZ9ULJkc5tMyojg_duwy1OTaivIE2QSEJVH96M5vuAXRUORIvLuD0ZSqcwCMYmqLYVG%3Dw900-h600-k-no-pi0-ya140-ro0-fo100!7i7200!8i3600!4m9!3m8!1s0x8f5e432fdaecf159:0xc25e11f3e5510e63!8m2!3d17.0898859!4d-89.1422331!10e5!14m1!1BCgIgARICCAI!16zL20vMDE0azd0"
+  },
+  {
+    "name": "El Capitolio, Havana",
+    "latitude": 23.13504,
+    "longitude": -82.35889,
+    "countryCode": "CU",
+    "pano": "CIHM0ogKEICAgIDqg9_fLA",
+    "uuid": "sv-el-capitolio--havana",
+    "url": "https://www.google.com/maps/place/National+Capitol+of+Cuba/@23.1349853,-82.3596036,3a,75y,339.89h,100.11t/data=!3m8!1e1!3m6!1sCIABIhBC-fl3M3XjuYbiiK83twdn!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgps-cs-s%2FAHRPTWnoNA50W2JJ_qPRjd9iDqtennhZDqq_C53eOE44A5LJ08i5A2Mr2N0oLaNWKd_kHGE26JykaCTnDvT83FHstigg1bpVoZDp7yu8wTwvS0NEWX4sTiKOS-GFL-1adCDK3y2AOIYgjrwtxssU%3Dw900-h600-k-no-pi-10.112570000000005-ya339.88742-ro0-fo100!7i11904!8i5952!4m9!3m8!1s0x88cd79ba59e75879:0x1a4753dc1298f505!8m2!3d23.1349853!4d-82.3596036!10e5!14m1!1BCgIgARICCAI!16zL20vMGY3N3gx"
+  },
+  {
+    "name": "Christ Church Cathedral, Stanley",
+    "latitude": -51.69207,
+    "longitude": -57.85783,
+    "countryCode": "FK",
+    "pano": "CIABIhByWVynm6pXNI2Etw3XcUTk",
+    "uuid": "sv-christ-church-cathedral--stanley",
+    "url": "https://www.google.com/maps/place/Saint+Mary's+Catholic+Church/@-51.6918226,-57.8641031,3a,75y,120h,90t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgICEx7npZA!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgps-cs-s%2FAHRPTWlsGCrxn1cHshBZn-4qBeezByQL2WIei6LBbijhUxYAbqKrkxw7zCLnYnbS1YFgxbXrN2JsKLc3rZ6lB_wVAXkB1YlZ83gzGEtAsfJAUvK7_XnuLitprthGILU7LpZhwpT4jo2Q%3Dw900-h600-k-no-pi0-ya353-ro0-fo100!7i8704!8i4352!4m9!3m8!1s0xbe81d35c873a14df:0x735d7ea7917c4c8b!8m2!3d-51.6917287!4d-57.8638158!10e5!14m1!1BCgIgARICCAI!16s%2Fg%2F1z0sp8tly"
+  },
+  {
+    "name": "Sri Siva Subramaniya Temple, Nadi",
+    "latitude": -17.78134,
+    "longitude": 177.4148,
+    "countryCode": "FJ",
+    "pano": "CIHM0ogKEICAgIC60s22SQ",
+    "uuid": "sv-sri-siva-subramaniya-temple--nadi",
+    "url": "https://www.google.com/maps/place/Sri+Siva+Subramaniya+Swami+Temple/@-17.807353,177.4148089,3a,75y,199.29h,111.37t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgICEnZP6YQ!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAFP8RcODsLJkzd6SM9Qi3OtfKL7s6sykuhmgiLMD4uDnszIb_tEn9JybNDeKoxrJ0TAajeCj6gxAwRzro9It4IFiYHPneh2QjbjWQyzOJ8rti5o3DfRrRMr1O6eOAuNgvzm5sl0gY_g%3Dw900-h600-k-no-pi-21.369606000000005-ya328.58778547363283-ro0-fo100!7i13312!8i6656!4m9!3m8!1s0x6e175af0c7ffce13:0xea9c55b2ae505af8!8m2!3d-17.8073852!4d177.4151085!10e5!14m1!1BCgIgARICCAI!16zL20vMDk0dGN4"
+  },
+  {
+    "name": "Arch 22, Banjul",
+    "latitude": 13.45579,
+    "longitude": -16.58213,
+    "countryCode": "GM",
+    "pano": "CIHM0ogKEICAgICT7JGargE",
+    "uuid": "sv-arch-22--banjul",
+    "url": "https://www.google.com/maps/place/Arch+22/@13.4601281,-16.5820852,3a,75y,346.38h,106.85t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgIDMktTGOg!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAFP8RcNwfnRArwosAU6V7gO6CacH_LQBQnbGDJPThw7l2C_hlRjw1wwX9SxonXRbAEYIjnIkD1Zk3hp8WdJ1W4E7624Fikso7QJnrX4PSaOM7z9JwBlvAJXYv6H71-9jVrWV1b7ZxJ3d%3Dw900-h600-k-no-pi-16.8463-ya346.38263-ro0-fo100!7i5376!8i2688!4m9!3m8!1s0xec29c3329beb787:0x94aef88e3facedfb!8m2!3d13.4603442!4d-16.5824624!10e5!14m1!1BCgIgARICCAI!16s%2Fm%2F03why10"
+  },
+  {
+    "name": "St George's Cathedral, Georgetown",
+    "latitude": 6.81299,
+    "longitude": -58.16308,
+    "countryCode": "GY",
+    "pano": "CIHM0ogKEICAgIDe__nrNg",
+    "uuid": "sv-st-george-s-cathedral--georgetown",
+    "url": "https://www.google.com/maps/place/St+George's+Cathedral/@6.8126746,-58.1637359,3a,75y,59.89h,90.11t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgIDnmM2nTA!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgps-cs-s%2FAHRPTWlY2jPaWY6czdchrlhjPmdTiJ50Dcyv3SC5ZayyjD0LQxB6F-H_0JptBYHdQqEF7rmeI4kwrsne3S5LfDyOGfz5SHvWEZR7kRnBoXSkqrKNzsYqEjzhZjaaiP99JWiVKTepC1m2%3Dw900-h600-k-no-pi-0.11253999999999564-ya59.88746-ro0-fo100!7i12000!8i6000!4m9!3m8!1s0x8dafef10c66c144b:0x63a8dfa7424a39e3!8m2!3d6.8126046!4d-58.163617!10e5!14m1!1BCgIgARICCAI!16zL20vMGJuMzY3"
+  },
+  {
+    "name": "Citadelle Laferriere, Haiti",
+    "latitude": 19.57302,
+    "longitude": -72.24377,
+    "countryCode": "HT",
+    "pano": "CIHM0ogKEICAgICE5tPsvgE",
+    "uuid": "sv-citadelle-laferriere--haiti",
+    "url": "https://www.google.com/maps/place/Laferriere+Citadel/@19.5728683,-72.2435226,3a,75y,90t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgID4suOGrAE!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgps-cs-s%2FAHRPTWmUoz-Cc_bjpfKGnGN0gViP3B6zJojZ1Qkvfn546jHFgOdJdJTICGjtILExqvuQ0QrQEu_EhyDgliQ8YbjuuFiLRGG5yxmtrBq006jlLtLM1fDUeLG4Mv-FRoeCVzJ7ghZx4Gcx4g%3Dw900-h600-k-no-pi0-ya105-ro0-fo100!7i7168!8i3584!4m9!3m8!1s0x8eb6dc7dee232767:0xefeece7122c3742c!8m2!3d19.5727553!4d-72.2435832!10e5!14m1!1BCgIgARICCAI!16zL20vMDcyYnpw"
+  },
+  {
+    "name": "Al-Shaheed Monument, Baghdad",
+    "latitude": 33.33985,
+    "longitude": 44.44148,
+    "countryCode": "IQ",
+    "pano": "CIHM0ogKEICAgICe7YGVmQE",
+    "uuid": "sv-al-shaheed-monument--baghdad",
+    "url": "https://www.google.com/maps/place/Al-Shaheed+Monument/@33.3436421,44.4455974,3a,75y,100h,120.18t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgID21MKjcQ!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAFP8RcNyMWTtCJISISXHrjk9qZtOQMFnqabyvcSe6oZfRBnbuo7iD_SkJPcUfVD5rYyPoGeUDPfjCQErE7Hekhft9vNYZ1e5hNb1IYvg1RLfLh-ZUkw-sAgSKxzswUUtkCcruGjXWbA%3Dw900-h600-k-no-pi-30.175780000000003-ya359-ro0-fo100!7i6144!8i2042!4m9!3m8!1s0x155783a8a31cda2d:0xa21825ede093e539!8m2!3d33.3435177!4d44.4461413!10e5!14m1!1BCgIgARICCAI!16s%2Fm%2F02q7k3l"
+  },
+  {
+    "name": "St Paul's Cathedral, Abidjan",
+    "latitude": 5.32809,
+    "longitude": -4.01953,
+    "countryCode": "CI",
+    "pano": "CIHM0ogKEICAgICMprv9fQ",
+    "uuid": "sv-st-paul-s-cathedral--abidjan",
+    "url": "https://www.google.com/maps/place/St.+Paul's+Cathedral/@5.3332128,-4.0203566,3a,75y,40h,100t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgIDEsduXgQE!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAFP8RcOO0wYRXl_UFkupSIHNU1_ijXyw769DjFi6AWWprzOGDhmTc8sXkUpX9erzcE1EhZRLZ5p0zUekQNRo3RdRfGAAw87eYJR1wBgZKgjwNu2ixbxTWa762cW6Ylv1QUi-6wkg-iwJZA%3Dw900-h600-k-no-pi-10-ya345-ro0-fo100!7i8704!8i4352!4m9!3m8!1s0xfc1ebaf30364317:0xc9d0e1285018c8f1!8m2!3d5.332923!4d-4.0200302!10e5!14m1!1BCgIgARICCAI!16s%2Fm%2F012vm3vy"
+  },
+  {
+    "name": "Kuwait Towers",
+    "latitude": 29.39,
+    "longitude": 48.00306,
+    "countryCode": "KW",
+    "pano": "CIHM0ogKEICAgIC4hqXR4gE",
+    "uuid": "sv-kuwait-towers",
+    "url": "https://www.google.com/maps/place/Kuwait+Towers/@29.389714,48.0032899,3a,75y,90t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgIDWoMjEwgE!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgps-cs-s%2FAHRPTWn6V_15uED5G9DOuyO7KHld_kKdI30mxVznzAxVm74gsqsRjIn37-dQz-r-PWnqot0qX7m0RLRLYOfEebBsxBDxvvfx3bLdyNL2ViTmPhUHSQJ2hrXeQMlz52PnKM-fEVyKVXhp_w%3Dw900-h600-k-no-pi0-ya17-ro0-fo100!7i8704!8i4352!4m9!3m8!1s0x3fcf8362d1e75e1b:0x3b5166847e02f534!8m2!3d29.3896363!4d48.0026706!10e5!14m1!1BCgIgARICCAI!16zL20vMDVrdGd4"
+  },
+  {
+    "name": "Great Mosque of Djenne",
+    "latitude": 13.90507,
+    "longitude": -4.55523,
+    "countryCode": "ML",
+    "pano": "p0SBSr6eJrkAAARAtEXRFQ",
+    "url": "https://www.google.com/maps/place/Great+Mosque+of+Djenne/@13.9053977,-4.5551851,2a,75y,299.89h,90.11t/data=!3m7!1e1!3m5!1s6wP_vieHZ68AAARAtEXRHQ!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-0.11253999999999564%26panoid%3D6wP_vieHZ68AAARAtEXRHQ%26yaw%3D299.88745!7i13312!8i6656!4m9!3m8!1s0xe384870ed97208b:0x929503daad9aba1e!8m2!3d13.905169!4d-4.5554155!10e5!14m1!1BCgIgARICCAI!16zL20vMDM0OGRo",
+    "uuid": "sv-great-mosque-of-djenne"
+  },
+  {
+    "name": "Rova of Antananarivo",
+    "latitude": -18.92118,
+    "longitude": 47.53176,
+    "countryCode": "MG",
+    "pano": "dERitcYauMWDsSw9VTnRxA",
+    "uuid": "sv-rova-of-antananarivo",
+    "url": "https://www.google.com/maps/place/Queen's+Palace/@-18.9231241,47.5323745,3a,75y,180h,74.2t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgIC4tr6JygE!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgps-cs-s%2FAHRPTWmvDEJHq2cEMNNt1aLqC3CM71dnUcQm0ZXxBwAwbWulILqw06mrnOlN2p5AQWWcotp-9hSJOr6UNvHl2dKfPQMdqlVEYWnPSiA2fPUJyhH6SmgBuZFeuZgA9QkricTyeGrRS8lGyg%3Dw900-h600-k-no-pi15.801810000000003-ya359-ro0-fo100!7i9728!8i4002!4m9!3m8!1s0x21f07de0aec88445:0x9075bee78187fd2b!8m2!3d-18.9237141!4d47.5320673!10e5!14m1!1BCgIgARICCAI!16s%2Fm%2F03hkk6c"
+  },
+  {
+    "name": "Tjibaou Cultural Centre, Noumea",
+    "latitude": -22.25668,
+    "longitude": 166.48016,
+    "countryCode": "NC",
+    "pano": "CIHM0ogKEICAgICMyvfisQE",
+    "uuid": "sv-tjibaou-cultural-centre--noumea",
+    "url": "https://www.google.com/maps/place/Tjibaou+Cultural+Centre/@-22.2571374,166.4812972,3a,75y,220h,100t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgICMqsL0MQ!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAFP8RcMC9GvOcSMq5XFE-vt5ha61CCtL0-f7lXIQoPo8AtHH-HkF9RGqJTBFKTzEBVkFVd-xtyXz93IQB_mYp1RGI42z5ZWnixTTarsy99yV5Xw5MIGfQqI5YQdfASn3ainlgW2VMd5k%3Dw900-h600-k-no-pi-10-ya175.5-ro0-fo100!7i6720!8i3360!4m9!3m8!1s0x6c28086cee664a1b:0x613ddd8f57b7447f!8m2!3d-22.2561987!4d166.4818811!10e5!14m1!1BCgIgARICCAI!16zL20vMDZzNDI3"
+  },
+  {
+    "name": "Stefan cel Mare Monument, Chisinau",
+    "latitude": 47.025,
+    "longitude": 28.83194,
+    "countryCode": "MD",
+    "pano": "CIABIhDIFaSJQMUb9773Q7GtdoGN",
+    "uuid": "sv-stefan-cel-mare-monument--chisinau",
+    "url": "https://www.google.com/maps/place/Stephen+the+Great+Monument/@47.025507,28.8303485,3a,75y,279.89h,110.11t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgIDJkZuPMA!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgps-cs-s%2FAHRPTWk3CA2BnkhqOG9jnM8QnI2jctIFbrRneK4C_9jEuXUfYHGx2Fsj1iYuln_JHVUf_Kxrcyy5cjH27Ih-GVf8c1SJasJeBVnMPLZub1IaqdHGRode5VbO7U7G5jl77YyRAx3f1VPG%3Dw900-h600-k-no-pi-20.112570000000005-ya279.88742-ro0-fo100!7i10000!8i5000!4m9!3m8!1s0x40c97c34984111bb:0x871343440f2efd79!8m2!3d47.025502!4d28.8303034!10e5!14m1!1BCgIgARICCAI!16s%2Fm%2F0b6jxdm"
+  },
+  {
+    "name": "Shwedagon Pagoda, Yangon",
+    "latitude": 16.79798,
+    "longitude": 96.15002,
+    "countryCode": "MM",
+    "pano": "CIHM0ogKEICAgICm-dTqYA",
+    "uuid": "sv-shwedagon-pagoda--yangon",
+    "url": "https://www.google.com/maps/place/Shwedagon+Pagoda/@16.7985846,96.1495049,3a,75y,240h,90t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgICMrPqYwAE!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgps-cs-s%2FAHRPTWkjRaEA34EiYpTM9ZP-8jy8q23tiY_Eb8pDeUjS-g15j9izf0B2-J5YURW5-CPtmE63DfnOH06QfCdGgpUXxG2d1tnrkFcO0Qt8NIQqxoqu4LvbwYQEGA95FTG5zN7yIYersowUog%3Dw900-h600-k-no-pi0-ya267-ro0-fo100!7i8000!8i4000!4m9!3m8!1s0x30c1eb5e3fffe455:0xb7d3ad319654cf6e!8m2!3d16.7983725!4d96.1495573!10e5!14m1!1BCgIgARICCAI!16zL20vMDZ2cGR4"
+  },
+  {
+    "name": "Granada Cathedral, Nicaragua",
+    "latitude": 11.93032,
+    "longitude": -85.95621,
+    "countryCode": "NI",
+    "pano": "CIHM0ogKEICAgID4r5HTFg",
+    "uuid": "sv-granada-cathedral--nicaragua",
+    "url": "https://www.google.com/maps/place/Immaculate+Conception+of+Mary+Cathedral+Church/@11.9299041,-85.9532748,3a,75y,338.2h,115.89t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgICE5ILhEw!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAFP8RcOFYv-haWiOghrQHvjNidq1JX6Jxa11zWGZ4e6HhtXb7r5Vn5tiNUQBPUqG_iR1GM2mk6DB1SF4m9i0dSynw21JYTVm1ubmLmn3NdQVo-T4GwyC_PAP4NhYxNjeePdiIetpWYWx%3Dw900-h600-k-no-pi-25.891180000000006-ya354.39889220703117-ro0-fo100!7i8704!8i4352!4m9!3m8!1s0x8f740c94de092f83:0xb4775303e05d565f!8m2!3d11.9298587!4d-85.953358!10e5!14m1!1BCgIgARICCAI!16s%2Fg%2F1210xp7j"
+  },
+  {
+    "name": "Badshahi Mosque, Lahore",
+    "latitude": 31.58804,
+    "longitude": 74.31002,
+    "countryCode": "PK",
+    "pano": "CIHM0ogKEICAgIDUq-2POw",
+    "url": "https://www.google.com/maps/place/Badshahi+Mosque/@31.588055,74.3097783,3a,75y,299.89h,90.11t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgIChi5Kmfg!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgps-cs-s%2FAHRPTWmx0lAWyCU0wyn3ByNZacYmicWwBl2eKNUudfqxXEhC-p4Bnbx7Hhjvaw7USpkyq7YG7aZhXRdVnnY2S_usR3zcD5qjusfj50KPw2PgTi9T8IhtdDNkTE_eU0PiGhMuI6sjf4Mn%3Dw900-h600-k-no-pi-0.11253999999999564-ya299.88745-ro0-fo100!7i11968!8i5984!4m9!3m8!1s0x39191c9dbf0ddeb1:0x13bfcdb10fb490de!8m2!3d31.587939!4d74.3094357!10e5!14m1!1BCgIgARICCAI!16s%2Fm%2F025td3k",
+    "uuid": "sv-badshahi-mosque--lahore"
+  },
+  {
+    "name": "Palacio de Lopez, Asuncion",
+    "latitude": -25.27991,
+    "longitude": -57.63713,
+    "countryCode": "PY",
+    "pano": "CIHM0ogKEICAgIDa07ivAw",
+    "uuid": "sv-palacio-de-lopez--asuncion",
+    "url": "https://www.google.com/maps/place/Palacio+de+L%C3%B3pez/@-25.2772803,-57.6372402,3a,75y,160h,100t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgIDU_rvP3wE!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAFP8RcMmaMMHpF_GEpuJ3ckPiTf3K1MSHxOo8V7Oxumq-BtDWofmKAQDv8daQShkjgNu8XIU5BdjvoX1hh50anaC-Te6TnwlKc9qv4R9queMDx9S3Cp50-sYhbnevP3JU_ydDQJWudQ1-Q%3Dw900-h600-k-no-pi-10-ya271.3999938964844-ro0-fo100!7i8704!8i4352!4m9!3m8!1s0x945da78c93a9ad45:0x98f8ed14fc209ad4!8m2!3d-25.2773285!4d-57.6372345!10e5!14m1!1BCgIgARICCAI!16s%2Fm%2F043s7lf"
+  },
+  {
+    "name": "Umayyad Mosque, Damascus",
+    "latitude": 33.51186,
+    "longitude": 36.3067,
+    "countryCode": "SY",
+    "pano": "CIHM0ogKEICAgIDy3cvM3QE",
+    "uuid": "sv-umayyad-mosque--damascus",
+    "url": "https://www.google.com/maps/place/Umayyad+Mosque/@33.5113762,36.306684,3a,75y,280h,100t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgMCA2IjsqwE!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgps-cs-s%2FAHRPTWkTPdRh0tzLGw8D2ayC-97BY9np3Uy5BwyUjsv7Rt2mlCjdC1bm3JtFJyGLAHvfS41fPOOK9LR8JnImzijIW_nQHPywImlXiTr7NeJ8OFZT0Mw9t8cqY1UlD7qsEOEm1iVkygOkmQ%3Dw900-h600-k-no-pi-10-ya280-ro0-fo100!7i14400!8i7200!4m9!3m8!1s0x1518e6d61ef11add:0x8d73c908cf8d1b91!8m2!3d33.5113762!4d36.306684!10e5!14m1!1BCgIgARICCAI!16s%2Fg%2F11wv_t2qdr"
+  },
+  {
+    "name": "House of Wonders, Zanzibar",
+    "latitude": -6.16016,
+    "longitude": 39.18913,
+    "countryCode": "TZ",
+    "pano": "CIHM0ogKEICAgIDa6aXzoAE",
+    "uuid": "sv-house-of-wonders--zanzibar",
+    "url": "https://www.google.com/maps/place/House+of+Wonders/@-6.1609124,39.1895551,3a,75y,90t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgID4_feeGw!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAFP8RcMYKx0rj6Iz9DN0g29A5OuqoHdcPHCJclbJdhRdjY99bQaIpDod3PS6Ihn4go21Doycbe_2R1jTgTsgH6NDal3nAq5H516S_OdX9aIRaATgcn2RFcEQtzVAVSupYJerSDdVX5Yl%3Dw900-h600-k-no-pi0-ya41-ro0-fo100!7i8704!8i4352!4m9!3m8!1s0x185cd1b22dca5d0f:0x95c88fde2af5e4c3!8m2!3d-6.1609587!4d39.1895631!10e5!14m1!1BCgIgARICCAI!16s%2Fm%2F0b6l25w"
+  },
+  {
+    "name": "Registan, Samarkand",
+    "latitude": 39.65498,
+    "longitude": 66.97591,
+    "countryCode": "UZ",
+    "pano": "CIHM0ogKEICAgICLyKyDkQE",
+    "uuid": "sv-registan--samarkand",
+    "url": "https://www.google.com/maps/place/Registan+Square/@39.6546466,66.9757669,3a,75y,239.89h,90.11t/data=!3m8!1e1!3m6!1sCIABIhCrmIYbmncF2kwY3J9_ML99!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAFP8RcN5eWa8FITPUugmFAW-woxN5n5b4YOuY9RMTTS1nhpasGu20dXkqjtslhZz9VJIhKLDVCdzNUrFzf78393w6h2Rpxec_Tqm-Ls80wPbjilFdjtMQoVMo-q723dhxy4tEPll1HukBbSzgIQV%3Dw900-h600-k-no-pi-0.11257000000000517-ya239.88744-ro0-fo100!7i8000!8i4000!4m9!3m8!1s0x3f4d18b7c2e59337:0x532c8e039ecc92af!8m2!3d39.6546466!4d66.9757669!10e5!14m1!1BCgIgARICCAI!16zL20vMDNxeTZi"
+  },
+  {
+    "name": "El Avila, Caracas",
+    "latitude": 10.54187,
+    "longitude": -66.8748,
+    "countryCode": "VE",
+    "pano": "CIHM0ogKEICAgICZ-dLw9QE",
+    "uuid": "sv-el-avila--caracas",
+    "url": "https://www.google.com/maps/place/Avila+National+Park+In+Venezuela/@10.5186453,-66.8941956,3a,75y,110t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgICE9urj_QE!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgps-cs-s%2FAHRPTWnh_urulseCZ6PtdB0-F6U7oA_pyC8a1uP7rJItz48cIeQrfkA-SCneqQgWkZOwjgdRBs7yTv0zA9mIlfoHxI83xFQ1DYsS7Q6sb6aJUIefSTncTX-w7kAImiRBP_rzvoscGTRSfw%3Dw900-h600-k-no-pi-20-ya7-ro0-fo100!7i6656!8i3328!4m9!3m8!1s0x8c2a59750ed756d5:0xf2aa992ff676d594!8m2!3d10.5165724!4d-66.8578704!10e5!14m1!1BCgIgARICCAI!16zL20vMDlxbGZs"
+  },
+  {
+    "name": "Omar Ali Saifuddien Mosque, Brunei",
+    "latitude": 4.88991,
+    "longitude": 114.93926,
+    "countryCode": "BN",
+    "pano": "CIHM0ogKEICAgICEt6TA5gE",
+    "uuid": "sv-omar-ali-saifuddien-mosque--brunei",
+    "url": "https://www.google.com/maps/place/Omar+Ali+Saifuddien+Mosque/@4.8899107,114.9392603,3a,75y,173.81h,111.71t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgIC4xtSZ0gE!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAFP8RcPtGx4vB4Id_Lb3pFARuLxFaGRYqo9yEdVmK1hvy9Raa2qJjL2vRKwnYzpMUykBfTIDztWsiOYg9UNwzbSbQix1e3SxdmzRXYsYesQzwUtYi1ygHXbAdQmL5sW2knsDcIlICKsL3Q%3Dw900-h600-k-no-pi-21.707319999999996-ya160.80862-ro0-fo100!7i5656!8i2828!4m9!3m8!1s0x32228acdf2e1c185:0x2f44da106aa49f0d!8m2!3d4.8895688!4d114.9392944!10e5!14m1!1BCgIgARICCAI!16s%2Fm%2F026tjkz"
+  },
+  {
+    "name": "Metropolitan Cathedral, San Salvador",
+    "latitude": 13.698,
+    "longitude": -89.19199,
+    "countryCode": "SV",
+    "pano": "CIHM0ogKEICAgICileSEJg",
+    "uuid": "sv-metropolitan-cathedral--san-salvador",
+    "url": "https://www.google.com/maps/place/Catedral+Metropolitana+de+San+Salvador/@13.6980071,-89.1912376,3a,75y,8.63h,114.75t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgID49ZKthQE!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAFP8RcNfgdJWk0IOlQP46Tdcxj-sCsa_DTV1I8mXCKAWZL2lUQWLi8uSDrZdpeQvJkG_Fuv5MQmx6kMrFNW64utD_g3ws8PGll_7acvHr1_JPiZZFV1MwZiEJVX-7P2DMoYeaq3PrPm0jg%3Dw900-h600-k-no-pi-24.746719999999996-ya339.630394-ro0-fo100!7i6144!8i3072!4m9!3m8!1s0x8f6330e98a375c03:0x3c5acbdecdd71551!8m2!3d13.698274!4d-89.1911126!10e5!14m1!1BCgIgARICCAI!16s%2Fm%2F026s62k"
+  },
+  {
+    "name": "Gyeongbokgung, Seoul",
+    "latitude": 37.57899,
+    "longitude": 126.97703,
+    "countryCode": "KR",
+    "pano": "HQUCaUwQtTlzO_D_kcQUaQ",
+    "url": "https://www.google.com/maps/place/Gyeongbokgung+Palace/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgICx_MPRmAE!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgps-cs-s%2FAHRPTWmjh-GAaSQqyInzT3-bOcxpvM4Hhq9yTtqSaxG2KyyUOa2IpkZSyI6H5dxK0lFATRtKGihU9-NhxUcerN4xDuZ4eDPb_ns7eJ7AaprdQsPXenMi8aPtf_moftr1vyoZKx2j3xA1qA%3Dw900-h600-k-no-pi-10.112570000000005-ya119.88743-ro0-fo100!7i6528!8i3264!4m7!3m6!1s0x357ca2c74aeddea1:0x8b3046532cc715f6!10e5!14m1!1BCgIgARICCAI!16zL20vMDJ2M3Q2!20s8Q98HXHG%2BRRVMC55",
+    "uuid": "sv-gyeongbokgung--seoul"
+  },
+  {
+    "name": "Grand Palace, Bangkok",
+    "latitude": 13.75013,
+    "longitude": 100.49183,
+    "countryCode": "TH",
+    "pano": "CIHM0ogKEICAgID076-v2wE",
+    "uuid": "sv-grand-palace--bangkok",
+    "url": "https://www.google.com/maps/place/The+Grand+Palace/@13.7500965,100.4912866,3a,75y,355.08h,120t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgIDEyInjbw!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAFP8RcMKSRQ4EQKjsLgHBC4jTUIyFhivc5SXVXV6l8oWyNXseAc-BbyNbKLQCLBBTS7iKhKNiI0mnlfpmZ4J39n9feygutTMh02hyoQxRSpfHtrM4c5pM60IZi4GOlmv9mFHISXJWvzU%3Dw900-h600-k-no-pi-30-ya355.08444-ro0-fo100!7i5656!8i2828!4m9!3m8!1s0x30e2994e316c363f:0x2a6c77dd93ef4c41!8m2!3d13.7498558!4d100.4915765!10e5!14m1!1BCgIgARICCAI!16zL20vMDJqaDg5"
+  },
+  {
+    "name": "Ha Long Bay viewpoint",
+    "latitude": 20.91005,
+    "longitude": 107.1839,
+    "countryCode": "VN",
+    "pano": "CIHM0ogKEICAgIDfjOedvQE",
+    "url": "https://www.google.com/maps/place/Ha+Long+View+Point/@20.9492202,107.0934163,3a,75y,178.81h,90t/data=!3m7!1e1!3m5!1s4GFzBy-aLlfRCOJmxLrigQ!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D0%26panoid%3D4GFzBy-aLlfRCOJmxLrigQ%26yaw%3D178.81102!7i16384!8i8192!4m9!3m8!1s0x314a59d7fdd9cc13:0xa718912285c94e3b!8m2!3d20.9489985!4d107.0934247!10e5!14m1!1BCgIgARICCAI!16s%2Fg%2F11tp72cdn9",
+    "uuid": "sv-ha-long-bay-viewpoint"
+  },
+  {
+    "name": "Tanah Lot, Bali",
+    "latitude": -8.62102,
+    "longitude": 115.08698,
+    "countryCode": "ID",
+    "pano": "CIHM0ogKEICAgIDqraz-wAE",
+    "url": "https://www.google.com/maps/place/Tanah+Lot/@-8.6210297,115.0873506,3a,75y,80h,110t/data=!3m7!1e1!3m5!1s_oGNpcNc9XAttenTgJq1mQ!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-20%26panoid%3D_oGNpcNc9XAttenTgJq1mQ%26yaw%3D80!7i13312!8i6656!4m9!3m8!1s0x2dd237824f71deab:0xcaabe270f7e34d69!8m2!3d-8.621213!4d115.086807!10e5!14m1!1BCgIgARICCAI!16zL20vMGJ2NGRo",
+    "uuid": "sv-tanah-lot--bali"
+  },
+  {
+    "name": "Gandan Monastery, Ulaanbaatar",
+    "latitude": 47.92301,
+    "longitude": 106.89498,
+    "countryCode": "MN",
+    "pano": "PbfiKvQvzavWeF8rBubsFw",
+    "url": "https://www.google.com/maps/place/Gandantegchinlen+Monastery/@47.9217188,106.894276,3a,75y,13.02h,105.08t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgIDWzKaQCQ!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAFP8RcM6v-VxI6a5cPamo3ainGRnvvnFRYp89hqnBiwdVp2_oQ1qIri8eRwxoc4HQMFnjOO14Ma_wnqJJRRPCXzUKSgGqhVQXfs3XH9rdv9R7wTnT2W7QvqCw9P-XI0NUIhCjUy00qg%3Dw900-h600-k-no-pi-15.084429999999998-ya13.020638-ro0-fo100!7i5376!8i2688!4m9!3m8!1s0x5d9692f6f69d4b81:0xf8b6b5e95e728375!8m2!3d47.9231136!4d106.8949841!10e5!14m1!1BCgIgARICCAI!16s%2Fm%2F026bmfs",
+    "uuid": "sv-gandan-monastery--ulaanbaatar"
+  },
+  {
+    "name": "Tiwanaku, Bolivia",
+    "latitude": -16.55505,
+    "longitude": -68.673,
+    "countryCode": "BO",
+    "pano": "lsbBr3XlfkP3opvswX4w0A",
+    "uuid": "sv-tiwanaku--bolivia",
+    "url": "https://www.google.com/maps/place/Tiwanaku,+Bolivia/@-16.5610672,-68.678642,2a,75y,340h,100t/data=!3m7!1e1!3m5!1sWs5pRjkdIfoC5vhXlnP24g!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-10%26panoid%3DWs5pRjkdIfoC5vhXlnP24g%26yaw%3D340!7i13312!8i6656!4m9!3m8!1s0x915ebd0d7ef3b16f:0xaa7a53d0dc91931a!8m2!3d-16.5524779!4d-68.6811615!10e5!14m1!1BCgIgARICCAI!16s%2Fm%2F09gd9xy"
+  },
+  {
+    "name": "Hallgrimskirkja, Reykjavik",
+    "latitude": 64.14199,
+    "longitude": -21.92701,
+    "countryCode": "IS",
+    "pano": "CIHM0ogKEICAgIDEquHyrwE",
+    "uuid": "sv-hallgrimskirkja--reykjavik",
+    "url": "https://www.google.com/maps/place/Hallgrimskirkja/@64.1425025,-21.9266945,3a,75y,5.33h,120t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgIDGmvO_-AE!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgps-cs-s%2FAHRPTWnfs-l5Q4_hcCsXkj-KgvHn9qr2xTauo4BtCIi0UIiw6BE8KFLwc4WGDZS2ESbCDFHTBkBAtFHessCqW8YyZnmCM2Ph6cE_nzcHLg-qzHRSbbpz1czS6T2YTB29PzkM8NRjkaQLqA%3Dw900-h600-k-no-pi-30-ya213.0889815-ro0-fo100!7i16384!8i8192!4m9!3m8!1s0x48d674cca0432db5:0xf7af28c4489daaef!8m2!3d64.1420229!4d-21.9265493!10e5!14m1!1BCgIgARICCAI!16s%2Fg%2F1tknk0hk"
+  },
+  {
+    "name": "Obelisco, Buenos Aires",
+    "latitude": -34.60403,
+    "longitude": -58.38102,
+    "countryCode": "AR",
+    "pano": "r94rYekhDoGPy_Cz-vzKJw",
+    "uuid": "sv-obelisco--buenos-aires",
+    "url": "https://www.google.com/maps/place/Obelisk/@-34.6037037,-58.3816022,3a,75y,359.89h,90.11t/data=!3m8!1e1!3m6!1sCIABIhD51IfTpqkMM5gzaVS-2YaW!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgps-cs-s%2FAHRPTWnJIje7v-YqAbakDpS-4K6M-0vdP7XAxSHPNcUgePM9GN9EnfhFzaT89bF93z0zlXpygGJt_cRbOAkph1sqmhrYnpLG1yqxiaFYnr7dNKJlKsrSG5fxwajjlA67QtfdnM4JX6Nbpiv1Newh%3Dw900-h600-k-no-pi-0.11253999999999564-ya359.88745-ro0-fo100!7i16384!8i8192!4m9!3m8!1s0x4aa9f0a6da5edb:0x11bead4e234e558b!8m2!3d-34.6037014!4d-58.3816048!10e5!14m1!1BCgIgARICCAI!16zL20vMDM1Z2pi"
+  },
+  {
+    "name": "Oslo Opera House",
+    "latitude": 59.90702,
+    "longitude": 10.75304,
+    "countryCode": "NO",
+    "pano": "CIHM0ogKEICAgICzuPLtkQE",
+    "uuid": "sv-oslo-opera-house",
+    "url": "https://www.google.com/maps/place/Oslo+Opera+House/@59.9073466,10.752708,3a,75y,239.89h,90.11t/data=!3m8!1e1!3m6!1sCIABIhAGbzcz9C8qE2gPNpsABSGC!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAFP8RcMsh3Yv5tDXb1liMe_0hmeZmpsIfkRoy-L75lKlRqW6Zen0UVYx9PvMRwSdNfoIZC0uyNL18Ah8q3JwPNF2jcUhEo0RWp7O7FChJscBO0_YL85xE4EmggPnbA0yg_InIIVXBY3HtJJ4elw%3Dw900-h600-k-no-pi-0.11253999999999564-ya239.88747-ro0-fo100!7i6528!8i3264!4m9!3m8!1s0x46416e8ba321f715:0x1cb6a7c6a2a2d611!8m2!3d59.9074885!4d10.7531275!10e5!14m1!1BCgIgARICCAI!16s%2Fm%2F02vtcxp"
+  },
+  {
+    "name": "Helsinki Cathedral",
+    "latitude": 60.17,
+    "longitude": 24.952,
+    "countryCode": "FI",
+    "pano": "CIABIhCubWiJw9bVRrH5F894zUPJ",
+    "uuid": "sv-helsinki-cathedral",
+    "url": "https://www.google.com/maps/place/Helsinki+Cathedral/@60.1703707,24.952131,3a,75y,90t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgIDEl_2uxAE!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgps-cs-s%2FAHRPTWmrOkfsyw_Pt7xtquILeNDZ5gaisjWjlPTPWY2ryGmhmPl4bu4uQYoDbCDC-Lb1ADAbJa0CacejzfMtrU5CbxpTS5T44IAcY0cLQc80csVf7DRIcmukeAACqecKG24R5-KQ_r1fyQ%3Dw900-h600-k-no-pi0-ya9.990880000000004-ro0-fo100!7i5660!8i2830!4m9!3m8!1s0x46920bce46c319b7:0x28a7d7b40911eba2!8m2!3d60.1703707!4d24.952131!10e5!14m1!1BCgIgARICCAI!16zL20vMDNoNTI1"
+  },
+  {
+    "name": "Edinburgh Castle",
+    "latitude": 55.94903,
+    "longitude": -3.19996,
+    "countryCode": "GB",
+    "pano": "UGKqsOYRexZOjVMcrATzwA",
+    "url": "https://www.google.com/maps/place/Edinburgh+Castle/@55.9485947,-3.1999135,3a,75y,0.56h,105.76t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgID-7fnuOA!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgps-cs-s%2FAHRPTWlJAiNVy_79TGjhx8wPHLxO_32PjHPvQOSYd5NZ0gl8Y0JXbDOkXecINnTv2lf-HqXqWzm5GrwaL03DO7I8WMbxfUKGNlci8_T7ciD4DBsEjZDOxPu2lroatEGNMirGJTjCoj97%3Dw900-h600-k-no-pi-15.75985-ya0.5628518-ro0-fo100!7i14500!8i7250!4m9!3m8!1s0x4887c79a2099c0f7:0x469a1eebe54c0a58!8m2!3d55.9485947!4d-3.1999135!10e5!14m1!1BCgIgARICCAI!16zL20vMGpwbl8",
+    "uuid": "sv-edinburgh-castle"
+  },
+  {
+    "name": "Grand Place, Brussels",
+    "latitude": 50.84686,
+    "longitude": 4.35306,
+    "countryCode": "BE",
+    "pano": "CIHM0ogKEICAgIC4j9fnAQ",
+    "uuid": "sv-grand-place--brussels",
+    "url": "https://www.google.com/maps/place/Grand+Place/@50.8467981,4.3524312,3a,75y,277.45h,120t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgICO9ZrUOQ!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAFP8RcMmq0lU_EEAf-u0TeOq3UN3-LvLsNW9ULvzBZIa_vjr2RuCyBD1k2Y9hwr4v-_G5ws-y1IPPQtvx3a2D8KFqODPMyJh27lLLacgXR05ucCh8VGDkKW1H1DAhzu9GbJ3Vg9bsFBy%3Dw900-h600-k-no-pi-30-ya137.4484-ro0-fo100!7i4608!8i2304!4m9!3m8!1s0x47c3c47f4614f1f1:0xb03c355d8fe2cfb6!8m2!3d50.8467887!4d4.3524356!10e5!14m1!1BCgIgARICCAI!16zL20vMGx5OWc"
+  },
+  {
+    "name": "Belem Tower, Lisbon",
+    "latitude": 38.69198,
+    "longitude": -9.2159,
+    "countryCode": "PT",
+    "pano": "CIHM0ogKEICAgIC4n_j9KA",
+    "url": "https://www.google.com/maps/place/Bel%C3%A9m+Tower/@38.6917425,-9.2156742,3a,75y,139.77h,114.2t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgIDB74fHrwE!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAFP8RcNEzPz3QXdBA5yBbzMsq98pJTeSmfCZ1LGmVoP28Pl2Jxj-izJtrZNAVV5cqYrdsPFXwxA4XTcSQiNMlkLF7lP1tBmOLPv-c3zZDqWMbo6jhBhhYNLMA-1u27hMhagrw28u3SDbSw%3Dw900-h600-k-no-pi-24.202619999999996-ya33.723575209960885-ro0-fo100!7i5760!8i2880!4m9!3m8!1s0xd1ecb42c3c29c4b:0x3002dcadcf52513f!8m2!3d38.6915837!4d-9.2159773!10e5!14m1!1BCgIgARICCAI!16zL20vMDVnYng2",
+    "uuid": "sv-belem-tower--lisbon"
+  },
+  {
+    "name": "Hungarian Parliament, Budapest",
+    "latitude": 47.50704,
+    "longitude": 19.04602,
+    "countryCode": "HU",
+    "pano": "CIHM0ogKEICAgIDE0IeYIQ",
+    "uuid": "sv-hungarian-parliament--budapest",
+    "url": "https://www.google.com/maps/place/Hungarian+Parliament+Building/@47.507121,19.045669,3a,75y,356.51h,102.48t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgIC6quzy_wE!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAFP8RcOWTArxIeYfFLtM8Hb16_r5UgX9sGbHQDFxEXIioUvYGnXMH9XkHJWcEcYrZw1p1bjZ60-p8E6zvNi7A8GHmuLfKIZHy_acuW3uBLaTHofUkCXdOufffZZtMZu3tFoYj98vkBsDgQ%3Dw900-h600-k-no-pi-12.476550000000003-ya356.5103-ro0-fo100!7i3889!8i1944!4m9!3m8!1s0x4741dc1046d4a33d:0x342122b8ff8f0f6e!8m2!3d47.507121!4d19.045669!10e5!14m1!1BCgIgARICCAI!16zL20vMDhsdnN0"
+  },
+  {
+    "name": "Cloth Hall, Krakow",
+    "latitude": 50.06204,
+    "longitude": 19.93698,
+    "countryCode": "PL",
+    "pano": "CIHM0ogKEICAgIC4u8zhPg",
+    "uuid": "sv-cloth-hall--krakow",
+    "url": "https://www.google.com/maps/place/MNK+Sukiennice/@50.0615612,19.9377967,3a,75y,133.84h,106.54t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgIC0rpizYA!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgps-cs-s%2FAHRPTWlu119ZPZE5GT_V1jIFz_CikbDiKN5Cc3J3Z5Fmc9Qlgc8DUQSGkO5dusI_KIDMwRe97Pl-SU33579239xcJPVuvt1gRzoTKCeyMk3VxarJ7FoRuwlqi8H6qnDLmIFQa-qJPZ6w%3Dw900-h600-k-no-pi-16.543409999999994-ya133.84244-ro0-fo100!7i8192!8i4096!4m9!3m8!1s0x47165b0e077b0fdd:0xd01f6c2526b37173!8m2!3d50.0617132!4d19.9373488!10e5!14m1!1BCgIgARICCAI!16zL20vMDc3MHB5"
+  },
+  {
+    "name": "Saint Sophia Cathedral, Kyiv",
+    "latitude": 50.45,
+    "longitude": 30.4833,
+    "countryCode": "UA",
+    "pano": "CIHM0ogKEICAgIDyj9DfPw",
+    "uuid": "sv-saint-sophia-cathedral--kyiv",
+    "url": "https://www.google.com/maps/place/St.+Sophia's+Cathedral/@50.4526512,30.5139611,3a,75y,303.49h,100.69t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgICE9sufVw!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgps-cs-s%2FAHRPTWnztodiUgGzadDPQuuayn08zzB1R_bTnz0YlaKvqf15AFOsrVuPzqAOy7P4rIooQTu-5T9n2HL2AjKcp_oX0MDZLYVGRn0AeuEbLjNqIh3Ws-TwO_WER6ASt4_sW_CXJfU-mFZA%3Dw900-h600-k-no-pi-10.694180000000003-ya208.21446000000003-ro0-fo100!7i10724!8i5362!4m9!3m8!1s0x40d4ce88e35e395f:0xc63774cf5da5a434!8m2!3d50.4529022!4d30.5142035!10e5!14m1!1BCgIgARICCAI!16zL20vMDM5bjhi"
+  },
+  {
+    "name": "Alexander Nevsky Cathedral, Sofia",
+    "latitude": 42.69597,
+    "longitude": 23.33296,
+    "countryCode": "BG",
+    "pano": "CIHM0ogKEICAgID41PrcLQ",
+    "uuid": "sv-alexander-nevsky-cathedral--sofia",
+    "url": "https://www.google.com/maps/place/Patriarchal+Cathedral+St.+Alexander+Nevsky/@42.6958847,23.3328704,3a,75y,359.89h,90.11t/data=!3m8!1e1!3m6!1sCIABIhAITOfjmbr7h1RAYOv8GIkZ!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAFP8RcP4MKtxceqmo3ZZB0pXgRuOqzBpayAcAHq05iC1oaC99QDVvf2thswdqMzOTnWAWUl2V3U7vjdDL_Exw8_pvR015AzRWDo6YQcIwjAZmV3q_yrZ3WWOGZ3L2f8VTHsIKCvgbcoMCkN5whzj%3Dw900-h600-k-no-pi-0.11257000000000517-ya359.88742-ro0-fo100!7i8000!8i4000!4m9!3m8!1s0x40aa85712687e499:0x29370f3a6e85350!8m2!3d42.696022!4d23.3325315!10e5!14m1!1BCgIgARICCAI!16zL20vMGI0cGNm"
+  },
+  {
+    "name": "CN Tower, Toronto",
+    "latitude": 43.64202,
+    "longitude": -79.387,
+    "countryCode": "CA",
+    "pano": "maywjcZQjqe3PNlqOVh4Mg",
+    "url": "https://www.google.com/maps/place/CN%20Tower/@43.64256098138814,-79.38780380609604,3a,75.0y,299.88745h,90.11254t/data=!3m7!1e1!3m5!1s6DTBRMKl9z0glEtSKfPH2A!2e0!6shttps%3A%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D0%26panoid%3D6DTBRMKl9z0glEtSKfPH2A%26yaw%3D299.88745!7i13312!8i6656!4m9!3m8!1s0x882b34d68bf33a9b:0x15edd8c4de1c7581!8m2!3d43.6425662!4d-79.3870568!10e5!14m1!1BCgIgARICCAI",
+    "uuid": "sv-cn-tower--toronto"
+  },
+  {
+    "name": "White House, Washington",
+    "latitude": 38.89704,
+    "longitude": -77.03587,
+    "countryCode": "US",
+    "pano": "M9-txUnPOeUmBzrlSYieGw",
+    "url": "https://www.google.com/maps/place/The+White+House/@38.8976763,-77.0365298,3a,75y,90t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgIDD0IeQ5AE!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAFP8RcPLVK6KxHYN7d6X9C6Lora_8vlfb-IKk0C646WIWNgGwrI7Ib9lu-7QK_ScWm79rLGdcMJqKVRGhHfWN6W0AiVwI__Fbr67mL1NRp3gsErqkCl5tyzmngOwi5IpTwRK3Ob4QvfKKA%3Dw900-h600-k-no-pi0-ya308-ro0-fo100!7i8704!8i4352!4m9!3m8!1s0x89b7b7bcdecbb1df:0x715969d86d0b76bf!8m2!3d38.8976763!4d-77.0365298!10e5!14m1!1BCgIgARICCAI!16zL20vMDgxc3E",
+    "uuid": "sv-white-house--washington"
+  },
+  {
+    "name": "Uluru",
+    "latitude": -25.34443,
+    "longitude": 131.03688,
+    "countryCode": "AU",
+    "pano": "CIHM0ogKEICAgIDE59zRiAE",
+    "url": "https://www.google.com/maps/place/Uluru/@-25.3506086,131.0245509,3a,75y,319.89h,90.11t/data=!3m5!1e1!3m3!1si9kF1Rz1r1DiAepjc5qipA!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-0.11257000000000517%26panoid%3Di9kF1Rz1r1DiAepjc5qipA%26yaw%3D319.88742!4m9!3m8!1s0x2b236c2b6d625223:0x43a8cd4d9bc55f21!8m2!3d-25.3444277!4d131.0368822!10e5!14m1!1BCgIgARICCAI!16zL20vMF81eGM",
+    "uuid": "sv-uluru"
+  }
+]
