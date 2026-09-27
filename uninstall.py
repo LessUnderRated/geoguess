@@ -114,19 +114,86 @@ def rewrite_flags(add=False, remove=False):
         if updated != text: atomic_write(path, updated)
 
 
-def host_matches(path):
-    if not regular(path): return False
+def host_payload(host_bin):
+    return {
+        "allowed_origins": ["chrome-extension://%s/" % EXTENSION_ID],
+        "description": "Geo Guess next-round helper",
+        "name": "com.lessunderrated.geoguess",
+        "path": host_bin,
+        "type": "stdio",
+        "x-omarchy-owner": HOST_OWNER,
+    }
+
+
+def canonical_host_body(payload):
+    return json.dumps(payload, separators=(",", ":"), sort_keys=True)
+
+
+def owned_host_text(host_bin):
+    payload = host_payload(host_bin)
+    stamped = dict(payload)
+    stamped["x-omarchy-sha256"] = digest(canonical_host_body(payload))
+    return json.dumps(stamped, indent=2, sort_keys=True) + "\n"
+
+
+def we_own_host(path):
+    """Ownership is a content digest, not a marker a user can keep after editing."""
+    if not regular(path):
+        return False
+    text = read_text(path)
+    if text is None:
+        return False
     try:
-        with open(path, encoding="utf-8") as fh: data = json.load(fh)
-    except (OSError, ValueError): return False
-    return data.get("x-omarchy-owner") == HOST_OWNER and data.get("name") == "com.lessunderrated.geoguess" and data.get("path") == os.path.join(PLUGIN_DIR, "guess-host") and data.get("allowed_origins") == ["chrome-extension://ghhlkacefalngacompmfpiekbmblamgg/"]
+        data = json.loads(text)
+    except ValueError:
+        return False
+    if not isinstance(data, dict):
+        return False
+    claimed = data.get("x-omarchy-sha256")
+    if isinstance(claimed, str) and claimed:
+        rest = {key: value for key, value in data.items() if key != "x-omarchy-sha256"}
+        return claimed == digest(canonical_host_body(rest))
+    path_value = data.get("path")
+    if not isinstance(path_value, str):
+        return False
+    normalized = os.path.normpath(path_value)
+    if os.path.basename(normalized) != "guess-host" or PLUGIN_ID not in normalized.split(os.sep):
+        return False
+    return data == host_payload(path_value)
+
+
+def write_host(path, host_bin):
+    text = owned_host_text(host_bin)
+    if os.path.lexists(path) and not we_own_host(path):
+        return False
+    if read_text(path) == text:
+        return True
+    return atomic_write(path, text, 0o600)
+
+
+def install_hosts(host_bin):
+    if not regular(host_bin) or not os.access(host_bin, os.X_OK):
+        print("missing executable host: %s" % host_bin, file=sys.stderr)
+        return False
+    ok = True
+    for path in HOST_FILES:
+        if not write_host(path, host_bin):
+            print("refusing to overwrite unowned host file: %s" % path, file=sys.stderr)
+            ok = False
+    return ok
 
 
 def remove_hosts():
+    removed = False
     for path in HOST_FILES:
-        if host_matches(path):
-            try: os.remove(path)
-            except FileNotFoundError: pass
+        if not we_own_host(path):
+            continue
+        try:
+            os.remove(path)
+            removed = True
+        except FileNotFoundError:
+            pass
+    return removed
 
 
 def unit_dir(): return os.path.join(XDG_CONFIG, "systemd", "user")
@@ -214,9 +281,27 @@ def cmd_sync():
     if plugin_is_enabled_in_shell_config(): rewrite_flags(add=True); print("enabled"); return 0
     light_clean(); print("disabled"); return 0
 
+def cmd_install_host():
+    host_bin = sys.argv[2] if len(sys.argv) > 2 else os.path.join(PLUGIN_DIR, "guess-host")
+    if not install_hosts(host_bin):
+        return 1
+    print("Registered com.lessunderrated.geoguess")
+    return 0
+
+
+def cmd_remove_host():
+    if remove_hosts():
+        print("Removed owned Geo Guess native-messaging host")
+    else:
+        print("No owned Geo Guess native-messaging host files found")
+    return 0
+
+
 def main():
     args = sys.argv[1:]
     if args[:1] == ["setup"]: return cmd_setup()
+    if args[:1] == ["install-host"]: return cmd_install_host()
+    if args[:1] == ["remove-host"]: return cmd_remove_host()
     if "--sync" in args: return cmd_sync()
     if "--remove" in args or "--remove-if-missing" in args: return cmd_remove()
     if not os.path.isdir(PLUGIN_DIR): return cmd_remove()
