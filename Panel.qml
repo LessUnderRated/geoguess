@@ -446,9 +446,6 @@ Panel {
                 root.resolveLatLon(lat, lon, "")
               }
             }
-            onCountryActivated: function(code, name) {
-              // Precise lat/lon already handled via onCoordinateActivated.
-            }
           }
         }
 
@@ -578,15 +575,6 @@ Panel {
             fontFamily: root.bar.fontFamily
             visible: !root.playing && root.pickedLabel !== ""
             onClicked: root.dropRandom()
-          }
-          Button {
-            visible: !root.playing && root.pickedLabel !== ""
-            text: "Open panorama — " + root.pickedLabel.slice(0, 40)
-            tooltipText: "Open nearest panorama as a webapp (O)"
-            foreground: root.bar.foreground
-            fontFamily: root.bar.fontFamily
-            enabled: root.panoUrl !== ""
-            onClicked: root.openBrowse()
           }
           Button {
             iconText: ""
