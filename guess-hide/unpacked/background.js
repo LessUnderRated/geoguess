@@ -96,11 +96,50 @@ function permalink(pano, lat, lon) {
   return "https://www.google.com/maps/@" + lat + "," + lon + ",3a,75y,0h,90t/data=!3m4!1e1!3m2!1s" + pano + "!2e" + kind
 }
 
+var MAX_HTTP_BYTES = 2 * 1024 * 1024
+
+async function readBoundedText(response, limit) {
+  limit = limit || MAX_HTTP_BYTES
+  var declared = Number(response.headers.get("content-length"))
+  if (Number.isFinite(declared) && declared > limit) {
+    throw new Error("response too large")
+  }
+  if (!response.body || typeof response.body.getReader !== "function") {
+    var buffer = await response.arrayBuffer()
+    if (buffer.byteLength > limit) throw new Error("response too large")
+    return new TextDecoder("utf-8").decode(buffer)
+  }
+  var reader = response.body.getReader()
+  var chunks = []
+  var total = 0
+  for (;;) {
+    var step = await reader.read()
+    if (step.done) break
+    total += step.value.byteLength
+    if (total > limit) {
+      try { await reader.cancel() } catch (error) {}
+      throw new Error("response too large")
+    }
+    chunks.push(step.value)
+  }
+  var bytes = new Uint8Array(total)
+  var offset = 0
+  for (var i = 0; i < chunks.length; i++) {
+    bytes.set(chunks[i], offset)
+    offset += chunks[i].byteLength
+  }
+  return new TextDecoder("utf-8").decode(bytes)
+}
+
 async function officialPanos(tileX, tileY) {
   var url = "https://www.google.com/maps/photometa/ac/v1?pb=!1m1!1smaps_sv.tactile!6m3!1i"
     + tileX + "!2i" + tileY + "!3i17!8b1"
-  var response = await fetch(url)
-  var text = await response.text()
+  try {
+    var response = await fetch(url)
+    var text = await readBoundedText(response)
+  } catch (error) {
+    return []
+  }
   var panos = []
   var match
   var re = /\[2,"([^"]+)"\],null,\[\[null,null,(-?\d+\.\d+),(-?\d+\.\d+)\]/g

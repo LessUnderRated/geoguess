@@ -9,6 +9,8 @@ from pathlib import Path
 
 LOOKUP = Path(__file__).resolve().parent / "streetview-lookup"
 REGIONS = {"everywhere", "usa", "eu", "asia", "landmarks"}
+MAX_NATIVE_BYTES = 1024 * 1024
+MAX_LOOKUP_STDOUT = 64 * 1024
 
 
 def read_message():
@@ -16,7 +18,11 @@ def read_message():
     if len(raw) < 4:
         return {}
     size = struct.unpack("<I", raw)[0]
+    if size == 0 or size > MAX_NATIVE_BYTES:
+        return {}
     data = sys.stdin.buffer.read(size)
+    if len(data) != size:
+        return {}
     try:
         return json.loads(data.decode())
     except json.JSONDecodeError:
@@ -43,6 +49,8 @@ def region_id():
         )
     except (OSError, subprocess.TimeoutExpired):
         return "everywhere"
+    if len(proc.stdout or "") > 256:
+        return "everywhere"
     region = proc.stdout.strip().strip('"')
     return region if region in REGIONS else "everywhere"
 
@@ -59,6 +67,9 @@ def main():
             text=True,
             timeout=30,
         )
+        if len(proc.stdout or "") > MAX_LOOKUP_STDOUT:
+            write_message({"ok": False, "error": "lookup output too large"})
+            return
         doc = json.loads(proc.stdout or "{}")
     except (OSError, subprocess.TimeoutExpired, json.JSONDecodeError) as exc:
         write_message({"ok": False, "error": str(exc)})

@@ -21,6 +21,39 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
+# Socket timeout does not bound how large a body can be. Cap reads so a
+# hostile or oversized Maps response cannot exhaust the helper's memory.
+MAX_HTTP_BYTES = 2 * 1024 * 1024
+_HTTP_CHUNK = 64 * 1024
+
+
+class ResponseTooLarge(OSError):
+    """HTTP body exceeded MAX_HTTP_BYTES."""
+
+
+def read_http_text(request, timeout=12, limit=MAX_HTTP_BYTES):
+    """Read an HTTP response with a hard size cap, then decode as UTF-8."""
+    with urllib.request.urlopen(request, timeout=timeout) as response:
+        declared = response.headers.get("Content-Length")
+        if declared:
+            try:
+                if int(declared) > limit:
+                    raise ResponseTooLarge("HTTP Content-Length exceeds %s bytes" % limit)
+            except ValueError:
+                pass
+        chunks = []
+        total = 0
+        while True:
+            remaining = limit - total
+            chunk = response.read(_HTTP_CHUNK if remaining == 0 else min(_HTTP_CHUNK, remaining + 1))
+            if not chunk:
+                break
+            total += len(chunk)
+            if total > limit:
+                raise ResponseTooLarge("HTTP body exceeds %s bytes" % limit)
+            chunks.append(chunk)
+        return b"".join(chunks).decode("utf-8", "replace")
+
 
 def die(msg, code=2):
     print(json.dumps({"ok": False, "error": msg}))
@@ -73,8 +106,7 @@ def find_place(name, lat, lon):
                                "(KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"},
     )
     try:
-        with urllib.request.urlopen(request, timeout=12) as response:
-            text = response.read().decode("utf-8", "replace")
+        text = read_http_text(request)
     except (urllib.error.URLError, TimeoutError, OSError):
         return None
     found = re.search(
@@ -134,8 +166,7 @@ def place_photo(feature_id):
                       "(KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
     })
     try:
-        with urllib.request.urlopen(request, timeout=12) as response:
-            text = response.read().decode("utf-8", "replace")
+        text = read_http_text(request)
     except (urllib.error.URLError, TimeoutError, OSError):
         return None
     ident = re.search(r'\["([A-Za-z0-9_-]{22})",0,1,"', text)
@@ -251,8 +282,7 @@ def official_panos(tile_x, tile_y):
                       "(KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
     })
     try:
-        with urllib.request.urlopen(request, timeout=12) as response:
-            text = response.read().decode("utf-8", "replace")
+        text = read_http_text(request)
     except (urllib.error.URLError, TimeoutError, OSError) as exc:
         die(f"street view lookup failed: {exc}")
     found = re.findall(
@@ -307,8 +337,7 @@ def nearest_panorama(lat, lon, radius=SEARCH_RADIUS_METERS):
                       "(KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
     })
     try:
-        with urllib.request.urlopen(request, timeout=12) as response:
-            text = response.read().decode("utf-8", "replace")
+        text = read_http_text(request)
     except (urllib.error.URLError, TimeoutError, OSError) as exc:
         die(f"street view lookup failed: {exc}")
 
