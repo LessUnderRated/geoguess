@@ -53,6 +53,11 @@ def digest(text):
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
 
+def owner_record(content):
+    """Sidecar token for the copied uninstall script. Always includes a trailing newline."""
+    return digest(content or "") + "\n"
+
+
 def owned_text(body):
     return OWNED_PREFIX + digest(body) + "\n" + body
 
@@ -179,15 +184,15 @@ def install_copy():
     content = read_text(src)
     if content is None or not content.startswith("#!/usr/bin/env python3"): return False
     existing = read_text(UNINSTALL_DST)
-    if os.path.lexists(UNINSTALL_DST) and (not regular(UNINSTALL_DST) or read_text(OWNER_RECORD) != digest(existing or "")): return False
+    if os.path.lexists(UNINSTALL_DST) and (not regular(UNINSTALL_DST) or read_text(OWNER_RECORD) != owner_record(existing or "")): return False
     if existing != content and not atomic_write(UNINSTALL_DST, content, 0o755): return False
-    return atomic_write(OWNER_RECORD, digest(content) + "\n", 0o600)
+    return atomic_write(OWNER_RECORD, owner_record(content), 0o600)
 
 
 def remove_copy():
     content = read_text(UNINSTALL_DST)
     record = read_text(OWNER_RECORD)
-    if content is None or record != digest(content) + "\n": return
+    if content is None or record != owner_record(content): return
     try: os.remove(UNINSTALL_DST); os.remove(OWNER_RECORD)
     except FileNotFoundError: pass
 
