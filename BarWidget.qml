@@ -81,7 +81,7 @@ BarWidget {
     id: button
     anchors.fill: parent
     bar: root.bar
-    text: ""
+    text: ""
     tooltipText: panelLoader.item && panelLoader.item.pickedLabel ? ("Geo Guess — " + panelLoader.item.pickedLabel) : "Open Geo Guess"
     onPressed: function(buttonCode) { if (root.bar && buttonCode === Qt.LeftButton) root.toggle() }
   }
