@@ -47,9 +47,9 @@ def plugin_is_enabled_in_shell_config():
             return any(found(value) for value in node.values())
         if isinstance(node, list):
             return any(found(item) for item in node)
-        return node == PLUGIN_ID
+        return False
 
-    return found(config.get("layout")) or found(config.get("plugins"))
+    return found(config.get("bar")) or found(config.get("plugins")) or found(config.get("layout"))
 
 
 def split_extensions(value):
