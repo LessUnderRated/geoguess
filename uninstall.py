@@ -23,6 +23,7 @@ MARKER = "lessunderrated.geoguess/guess-hide"
 HOST_NAME = "com.lessunderrated.geoguess.json"
 EXTENSION_ID = "ghhlkacefalngacompmfpiekbmblamgg"
 UNIT = "lessunderrated-geoguess-gone"
+OWNED_LINE = "# Owned-by: lessunderrated.geoguess"
 FLAG_FILES = (
     os.path.join(XDG_CONFIG, "chromium-flags.conf"),
     os.path.join(XDG_CONFIG, "chromium", "chromium-flags.conf"),
@@ -209,29 +210,77 @@ def unit_dir():
     return os.path.join(XDG_CONFIG, "systemd", "user")
 
 
+def we_own(path):
+    try:
+        text = open(path, encoding="utf-8").read()
+    except OSError:
+        return False
+    if OWNED_LINE in text:
+        return True
+    name = os.path.basename(path)
+    return name.startswith(UNIT) and "Geo Guess" in text
+
+
+def write_owned(path, body):
+    text = OWNED_LINE + "\n" + body
+    if os.path.isfile(path):
+        if not we_own(path):
+            return False
+        try:
+            existing = open(path, encoding="utf-8").read()
+        except OSError:
+            existing = ""
+        if existing == text:
+            return True
+        shutil.copy2(path, path + ".bak")
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "w", encoding="utf-8") as fh:
+        fh.write(text)
+    return True
+
+
+def remove_owned(path):
+    if not os.path.isfile(path):
+        return
+    if not we_own(path):
+        return
+    try:
+        os.remove(path)
+    except FileNotFoundError:
+        pass
+    bak = path + ".bak"
+    if os.path.isfile(bak) and we_own(bak):
+        try:
+            os.remove(bak)
+        except FileNotFoundError:
+            pass
+
+
 def install_watch():
     directory = unit_dir()
     os.makedirs(directory, exist_ok=True)
     service = os.path.join(directory, UNIT + ".service")
     path_unit = os.path.join(directory, UNIT + ".path")
-    with open(service, "w", encoding="utf-8") as fh:
-        fh.write(
-            "[Unit]\n"
-            "Description=Finish Geo Guess Chromium cleanup after plugin remove\n"
-            "[Service]\n"
-            "Type=oneshot\n"
-            "ExecStart=/usr/bin/python3 %s --sync\n" % UNINSTALL_DST
-        )
-    with open(path_unit, "w", encoding="utf-8") as fh:
-        fh.write(
-            "[Unit]\n"
-            "Description=Watch for Geo Guess plugin folder removal\n"
-            "[Path]\n"
-            "PathModified=%s\n" % os.path.join(XDG_CONFIG, "omarchy", "plugins")
-            + "PathModified=%s\n" % os.path.join(XDG_CONFIG, "omarchy", "shell.json")
-            + "[Install]\n"
-            "WantedBy=default.target\n"
-        )
+    wrote_service = write_owned(
+        service,
+        "[Unit]\n"
+        "Description=Finish Geo Guess Chromium cleanup after plugin remove\n"
+        "[Service]\n"
+        "Type=oneshot\n"
+        "ExecStart=/usr/bin/python3 %s --sync\n" % UNINSTALL_DST,
+    )
+    wrote_path = write_owned(
+        path_unit,
+        "[Unit]\n"
+        "Description=Watch for Geo Guess plugin folder removal\n"
+        "[Path]\n"
+        "PathModified=%s\n" % os.path.join(XDG_CONFIG, "omarchy", "plugins")
+        + "PathModified=%s\n" % os.path.join(XDG_CONFIG, "omarchy", "shell.json")
+        + "[Install]\n"
+        "WantedBy=default.target\n",
+    )
+    if not (wrote_service and wrote_path):
+        return
     try:
         subprocess.run(
             ["systemctl", "--user", "daemon-reload"],
@@ -250,6 +299,14 @@ def install_watch():
 
 
 def remove_watch():
+    directory = unit_dir()
+    service = os.path.join(directory, UNIT + ".service")
+    path_unit = os.path.join(directory, UNIT + ".path")
+    ours = (not os.path.isfile(service) or we_own(service)) and (
+        not os.path.isfile(path_unit) or we_own(path_unit)
+    )
+    if not ours:
+        return
     try:
         subprocess.run(
             ["systemctl", "--user", "disable", "--now", UNIT + ".path", UNIT + ".service"],
@@ -265,12 +322,8 @@ def remove_watch():
         )
     except OSError:
         pass
-    directory = unit_dir()
-    for name in (UNIT + ".path", UNIT + ".service"):
-        try:
-            os.remove(os.path.join(directory, name))
-        except FileNotFoundError:
-            pass
+    remove_owned(service)
+    remove_owned(path_unit)
 
 
 def install_copy():
@@ -279,6 +332,13 @@ def install_copy():
         src = os.path.abspath(__file__)
     if not os.path.isfile(src):
         return False
+    if os.path.isfile(UNINSTALL_DST):
+        try:
+            existing = open(UNINSTALL_DST, encoding="utf-8").read()
+        except OSError:
+            return False
+        if PLUGIN_ID not in existing:
+            return False
     os.makedirs(os.path.dirname(UNINSTALL_DST), exist_ok=True)
     shutil.copy2(src, UNINSTALL_DST)
     os.chmod(UNINSTALL_DST, 0o755)
