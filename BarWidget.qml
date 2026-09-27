@@ -75,7 +75,10 @@ BarWidget {
         root.ensureRuntime()
         return
       }
-      if (root.wasEnabled) root.teardownRuntime()
+    if (root.wasEnabled) {
+        root.tearingDown = true
+        Quickshell.execDetached(["python3", root.pluginDir + "/uninstall.py", "--disable"])
+      }
     }
   }
 
