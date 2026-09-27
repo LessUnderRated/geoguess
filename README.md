@@ -16,7 +16,7 @@ omarchy plugin add https://github.com/LessUnderRated/geoguess.git --enable
 
 ## Usage
 
-Click the globe on the bar to open or close the panel. Press Escape to close it. Middle-click the bar icon for a random treasure.
+Click the globe on the bar to open or close the panel. Press Escape to close it.
 
 ## Configure
 

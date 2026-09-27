@@ -250,14 +250,6 @@ Panel {
       + (answerName ? " · " + answerName : "")
   }
 
-  function dropRandom() {
-    var pool = markers.length > 0 ? markers : []
-    if (pool.length === 0) return
-    var pick = pool[Math.floor(Math.random() * pool.length)]
-    if (opened) activateMarker(pick)
-    else { activateMarker(pick); open() }
-  }
-
   FileView {
     path: Qt.resolvedUrl("assets/countries.json").toString().replace(/^file:\/\//, "")
     watchChanges: false
@@ -382,7 +374,6 @@ Panel {
       onTextKey: function(t) {
         if (root.playing && root.roundPhase === "result" && (t === "n" || t === "N")) root.startRound()
         else if (t === "g" || t === "G") root.playing ? root.stopRound() : root.startRound()
-        else if (!root.playing && (t === "r" || t === "R")) root.dropRandom()
         else if (!root.playing && (t === "o" || t === "O" || t === "\r") && root.panoUrl)
           root.openBrowse()
       }
@@ -568,14 +559,6 @@ Panel {
             anchors.horizontalCenter: parent.horizontalCenter
             visible: root.playing || root.pickedLabel !== ""
 
-          Button {
-            iconText: ""
-            tooltipText: "Random treasure (R)"
-            foreground: root.bar.foreground
-            fontFamily: root.bar.fontFamily
-            visible: !root.playing && root.pickedLabel !== ""
-            onClicked: root.dropRandom()
-          }
           Button {
             iconText: ""
             tooltipText: "Open map view instead"

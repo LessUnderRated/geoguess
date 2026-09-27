@@ -62,10 +62,7 @@ BarWidget {
       : "Open Geo Guess"
     onPressed: function(buttonCode) {
       if (!root.bar) return
-      if (buttonCode === Qt.MiddleButton && panelLoader.item)
-        panelLoader.item.dropRandom()
-      else if (root.opened) root.close()
-      else root.open()
+      if (buttonCode === Qt.LeftButton) root.toggle()
     }
   }
 }
