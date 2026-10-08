@@ -106,13 +106,20 @@ def extension_path(path):
 
 
 def rewrite_flags(add=False, remove=False):
+    """Add or strip only this plugin's unpacked extension path.
+
+    Chromium keeps one --load-extension value (last switch wins). Omarchy stores
+    every unpacked path on a single comma-separated line. A second switch would
+    replace or hide the hide-extension. Never rewrite other paths or other flags.
+    """
+    ours_dir = os.path.isdir(EXTENSION_DIR)
     for path in FLAG_FILES:
         if not regular(path):
             continue
         text = read_text(path)
         if text is None:
             continue
-        lines, out, ours = text.splitlines(keepends=True), [], False
+        lines, out, ours, last_load = text.splitlines(keepends=True), [], False, None
         for line in lines:
             stripped = line.strip()
             if not stripped.startswith("--load-extension="):
@@ -121,14 +128,25 @@ def rewrite_flags(add=False, remove=False):
             paths = [p for p in stripped.split("=", 1)[1].split(",") if p]
             if remove:
                 paths = [p for p in paths if not extension_path(p)]
-            elif add and os.path.isdir(EXTENSION_DIR) and EXTENSION_DIR in paths:
+            elif add and ours_dir and any(extension_path(p) for p in paths):
                 ours = True
-            if paths: out.append("--load-extension=" + ",".join(paths) + ending)
-        if add and not ours and os.path.isdir(EXTENSION_DIR):
-            if out and not "".join(out).endswith("\n"): out.append("\n")
-            out.append("--load-extension=" + EXTENSION_DIR + "\n")
+            if paths:
+                last_load = len(out)
+                out.append("--load-extension=" + ",".join(paths) + ending)
+        if add and not ours and ours_dir:
+            if last_load is not None:
+                line = out[last_load]
+                ending = line[len(line.rstrip("\r\n")):]
+                paths = [p for p in line.strip().split("=", 1)[1].split(",") if p]
+                if not any(extension_path(p) for p in paths):
+                    paths.append(EXTENSION_DIR)
+                out[last_load] = "--load-extension=" + ",".join(paths) + ending
+            else:
+                if out and not "".join(out).endswith("\n"): out.append("\n")
+                out.append("--load-extension=" + EXTENSION_DIR + "\n")
         updated = "".join(out)
-        if updated != text: atomic_write(path, updated)
+        if updated != text and len(updated.encode("utf-8")) <= MAX_CONFIG_BYTES:
+            atomic_write(path, updated)
 
 
 def host_payload(host_bin):
@@ -289,7 +307,9 @@ def light_clean(): rewrite_flags(remove=True); remove_hosts()
 def full_clean(): light_clean(); remove_watch(); remove_copy()
 def cmd_setup():
     if not install_copy(): print("Geo Guess refused to replace an unowned uninstall script", file=sys.stderr); return 1
-    install_watch(); rewrite_flags(add=True); print("ok"); return 0
+    install_watch(); rewrite_flags(add=True)
+    install_hosts(os.path.join(PLUGIN_DIR, "guess-host"))
+    print("ok"); return 0
 def cmd_disable():
     if "--unless-enabled" in sys.argv and plugin_is_enabled_in_shell_config(): print("skip"); return 0
     light_clean(); print("ok"); return 0

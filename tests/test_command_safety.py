@@ -102,16 +102,38 @@ class FlagRewriteTests(unittest.TestCase):
         self.flags = self.uninst.FLAG_FILES[0]
         os.makedirs(os.path.dirname(self.flags), exist_ok=True)
 
-    def test_add_does_not_inject_into_other_load_extension_lines(self):
+    def test_add_appends_to_the_existing_load_extension_line(self):
         with open(self.flags, "w", encoding="utf-8") as fh:
             fh.write("--load-extension=/home/user/other-ext\n--force-dark-mode\n")
         self.uninst.rewrite_flags(add=True)
         with open(self.flags, encoding="utf-8") as fh:
             text = fh.read()
-        self.assertIn("--load-extension=/home/user/other-ext\n", text)
-        self.assertIn("--load-extension=" + self.uninst.EXTENSION_DIR, text)
-        self.assertNotIn("/home/user/other-ext," + self.uninst.EXTENSION_DIR, text)
-        self.assertNotIn(self.uninst.EXTENSION_DIR + ",/home/user/other-ext", text)
+        self.assertEqual(
+            text,
+            "--load-extension=/home/user/other-ext," + self.uninst.EXTENSION_DIR + "\n--force-dark-mode\n",
+        )
+        self.assertEqual(text.count("--load-extension="), 1)
+
+    def test_remove_strips_only_this_plugin_path(self):
+        with open(self.flags, "w", encoding="utf-8") as fh:
+            fh.write(
+                "--load-extension=/home/user/other-ext,"
+                + self.uninst.EXTENSION_DIR
+                + "\n--force-dark-mode\n"
+            )
+        self.uninst.rewrite_flags(remove=True)
+        with open(self.flags, encoding="utf-8") as fh:
+            text = fh.read()
+        self.assertEqual(text, "--load-extension=/home/user/other-ext\n--force-dark-mode\n")
+
+    def test_add_skips_write_when_result_would_exceed_limit(self):
+        padding = "x" * (self.uninst.MAX_CONFIG_BYTES - 80)
+        original = "--load-extension=/home/user/other-ext\n#" + padding + "\n"
+        with open(self.flags, "w", encoding="utf-8") as fh:
+            fh.write(original)
+        self.uninst.rewrite_flags(add=True)
+        with open(self.flags, encoding="utf-8") as fh:
+            self.assertEqual(fh.read(), original)
 
     def test_skips_oversized_flags_file(self):
         original = "--force-dark-mode\n" + ("x" * (self.uninst.MAX_CONFIG_BYTES + 50))
